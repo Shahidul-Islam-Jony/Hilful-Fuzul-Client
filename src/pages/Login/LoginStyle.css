@@ -1,0 +1,340 @@
+
+.wrapper{
+    position: relative;
+    width: 750px;
+    height: 450px;
+    background: transparent;
+    border: 2px solid rgb(0, 89, 255);
+    overflow: hidden;   /* For BG divider overflow hidden */
+    box-shadow: 0 0 25px rgb(0, 140, 255);
+    border-radius: 10px;
+}
+
+.wrapper .form-box{
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* padding from both side */
+.wrapper .form-box.login{
+    left: 0;
+    padding: 0 60px 0 40px;
+}
+
+.form-box h2{
+    font-size: 32px;
+    color: #0e0303;
+    text-align: center;
+}
+
+.form-box .input-box{
+    position: relative;
+    width: 100%;
+    height: 50px;
+    /* background: seagreen; */
+    margin: 20px 0;
+}
+
+/* Upload file design */
+/* .form-box .upload input[type="file"]{
+    border: 2px solid red;
+
+} */
+
+.form-box .input-box .upload{
+    color:red;
+    height: 40px;
+    width: 100%;
+    background-color: #fff;
+    position: absolute;
+    display: none;
+}
+
+.input-box input{
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid #5471f3;
+    font-size: 16px;
+    color: #070505;
+    padding-right: 23px;
+    font-weight: 500;
+    transition: 0.5s; /*for bottom border when text up animated */
+}
+
+/*for bottom border when text up animated */
+.input-box input:focus,
+.input-box input:valid{
+    border-bottom-color: #5471f3;
+}
+
+.input-box label{
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #0a0808;
+    pointer-events: none;   /*Activing Login Link already have account*/
+    transition: 0.5s;   /* for text up animation */
+}
+
+/* For text up animation */
+.input-box input:focus~label,
+.input-box input:valid~label{
+    top: -5px;
+    color: #5471f3;
+}
+
+
+.input-box .icon{
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    color: #0c0707;
+    font-size: 18px;
+    transition: 0.5s;   /*for Change color of Icon  when text up animated */
+}
+
+/*for Change color of Icon  when text up animated */
+.input-box input:focus~.icon,
+.input-box input:valid~.icon{
+    color: #5471f3;
+}
+
+.btn1{
+    position: relative;
+    width: 100%;
+    height: 45px;
+    background: transparent;
+    border: 2px solid #5471f3;
+    outline: none;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #fff;
+    font-weight: 600;
+    z-index: 1;
+    overflow: hidden;   /* hide overflow gradient color */
+}
+
+/* button animation */
+.btn1::before{
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 300%;
+    background: linear-gradient(#10334d,#5471f3,#0c273a,#526ff0);
+    z-index: -1;
+    transition: 0.5s;
+}
+
+.btn1:hover::before{
+    top: 0;
+}
+
+.form-box .logreg-link{
+    font-size: 14.5px;
+    color: #130707;
+    text-align: center;
+    margin: 20px 0px 10px;
+}
+
+.logreg-link p a{
+    color: #5471f3;
+    text-decoration: none;
+    font-weight: 700;
+}
+.logreg-link p a:hover{
+    text-decoration: underline;
+}
+
+/* Login Info Right side text */
+
+.wrapper .info-text{
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.wrapper .info-text.login{
+    right: 0;
+    text-align: right;
+    padding: 0 40px 60px 150px;
+}
+
+.info-text h2{
+    font-size: 36px;
+    color: #fff;
+    line-height: 1.3;
+    text-transform: uppercase;
+}
+
+.info-text p{
+    font-size: 16px;
+    color: #fff;
+}
+
+
+
+/* BG divider design login */
+.wrapper .bg-animate{
+    position: absolute;
+    top: -4px;
+    right: 0;
+    width: 850px;
+    height: 600px;
+    border-bottom: 3px solid #5471f3;
+    background: linear-gradient(45deg,#174b70, #5471f3);
+    transform: rotate(10deg) skewY(40deg);      /*for rotating bg*/
+    transform-origin: bottom right;
+    transition: 1.5s ease;  /* when changing background side */
+    transition-delay: 1.6s;
+}
+
+/* BG divider design Registration */
+.wrapper .bg-animate2{
+    position: absolute;
+    top: 100%;
+    left: 250px;
+    width: 850px;
+    height: 700px;
+    border-top: 3px solid #5471f3;
+    background: #fff;
+    transform: rotate(0) skewY(0);      /*for rotating bg*/
+    transform-origin: bottom left;
+    transition: 1.5s ease;
+    transition-delay: 0.5s;
+}
+
+
+/* Register page design */
+
+.wrapper .form-box.register{
+    right: 0;
+    padding: 0 40px 0 60px;
+    /* display: none; */
+    pointer-events: none;
+}
+
+.wrapper .info-text.register{
+    left: 0;
+    text-align: left;
+    padding: 0 150px 60px 40px;
+    /* display: none; */
+    pointer-events: none;   /*Activing Sign Up link Don't have account */
+}
+
+/* handle switch Sign Up and Login Mode */
+
+/* hide login form */
+.wrapper .form-box.login .animation{
+    transform: translateX(0);
+    transition: 0.7s ease;
+    opacity: 1;
+    filter: blur(0);
+    transition-delay: calc(0.1s* var(--j)); 
+}
+.wrapper.active .form-box.login .animation{
+    transform: translateX(-120%);
+    transition-delay: calc(0.1s* var(--i));
+    opacity: 0;
+    filter: blur(10px);
+}
+/* hide right side login text */
+.wrapper .info-text.login .animation{
+    transform: translateX(0);
+    transition: 0.7s ease;
+    opacity: 1;
+    filter: blur(0);
+    transition-delay: calc(0.1s* var(--j));   /* For smoothly comming login text*/
+}
+.wrapper.active .info-text.login .animation{
+    transform: translateX(120%);
+    transition-delay: calc(0.1s* var(--i));     /*For smoothly hide in side*/
+    opacity: 0;
+    filter: blur(10px);
+}
+
+/* Switch background */
+.wrapper.active .bg-animate{
+    transform: rotate(0) skewY(0);  /* for rotating bg1 */
+    transition-delay: .5s;
+}
+/* Switch background 2 */
+.wrapper.active .bg-animate2{
+   transform: rotate(-11deg) skewY(-41deg);    /* for rotating bg2 */
+    transition-delay: 1.2s;
+}
+
+/* handle  switch regestration form */
+
+/* showing Reg form */
+.wrapper .form-box.register .animation{
+    transform: translateX(120%);
+    transition: 0.7s ease;
+    opacity: 0;
+    filter: blur(10px);
+    transition-delay: calc(0.1s* var(--j));
+}
+.wrapper.active .form-box.register .animation{
+    transform: translateX(0);
+    transition-delay: calc(0.1s* var(--i));
+    opacity: 1;
+    filter: blur(0);
+}
+/* showing left side Reg text */
+.wrapper .info-text.register .animation{
+    transform: translateX(-120%);
+    transition: 0.7s ease;
+    opacity: 0;
+    filter: blur(10px);
+    transition-delay: calc(0.1s* var(--j));
+}
+.wrapper.active .info-text.register .animation{
+    transform: translateX(0);
+    opacity: 1;
+    filter: blur(0);
+    transition-delay: calc(0.1s* var(--i));
+}
+
+/* to active both side mouse effect when screen size are reduce */
+.wrapper.active .form-box.register{
+    pointer-events: auto;
+}
+.wrapper.active .info-text.register{
+    pointer-events: auto;
+}
+
+
+/* Responsive */
+
+@media screen and (max-width: 576px) {
+
+.wrapper .form-box{
+    width: 100%;
+}
+
+
+/* Login Info Right side text */
+
+.wrapper .info-text{
+   display: none;
+}
+
+
+}

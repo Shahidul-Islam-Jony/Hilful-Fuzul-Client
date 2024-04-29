@@ -8,17 +8,17 @@ import { MdArticle } from "react-icons/md";
 import { FaUserDoctor } from "react-icons/fa6";
 import './active.css'
 import { useContext, useState } from "react";
-// import { AuthContext } from "../../../providers/AuthProvider";
+import { AuthContext } from "../../../providers/AuthProvider";
 import { RiLogoutCircleLine } from "react-icons/ri";
 
 const Navbar = () => {
-    // const { user, logout } = useContext(AuthContext);
+    const { user, logout } = useContext(AuthContext);
     // console.log(user);
     const [isOpen, setIsOpen] = useState(false);
     const [isProfileClick, setIsProfileClicked] = useState(false);
 
     const handleLogout = () => {
-        // logout();
+        logout();
         setIsProfileClicked(false);
     }
 
@@ -60,7 +60,7 @@ const Navbar = () => {
                         <NavLink to='/contact' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><IoIosContact /> Contact Us</NavLink>
                     </ul>
                 </div>
-                {/* <div className="navbar-end">
+                <div className="navbar-end">
                     {
                         user ? <div className="flex items-center gap-4">
                             <div className="relative">
@@ -80,7 +80,7 @@ const Navbar = () => {
                         </div> :
                             <Link to='/login' className="btn btn-sm btn-outline text-base font-bold text-blue-600 hover:bg-green-800"><IoMdLogIn /> Login</Link>
                     }
-                </div> */}
+                </div>
             </div>
         </div>
     );
