@@ -15,22 +15,20 @@ const Footer = () => {
                 {/* waves end */}
 
                 <div className='w-full lg:pl-24'>
-                    <img src='' className='w-20 h-20 rounded-full' alt="Lifecare logo" />
-                    <p>LifeCare Ltd.<br />Providing medical services since 2024</p>
+                    <img src='Hilfulfuzul.png' className='w-20 h-20 rounded-full' alt="Lifecare logo" />
+                    <p>Hilful Fuzul<br />Re-established March 24, 2024</p>
                 </div>
                 <div className='flex flex-col w-full'>
                     <h6 className="footer-title">Services</h6>
-                    <a className="">Branding</a>
-                    <a className="">Design</a>
-                    <a className="">Marketing</a>
-                    <a className="">Advertisement</a>
+                    <a className="">Establish Peace</a>
+                    <a className="">Helping Poor People</a>
+                    <a className="">Developmental work</a>
                 </div>
                 <div className='flex flex-col w-full'>
                     <h6 className="footer-title">Company</h6>
-                    <a className="">About us</a>
-                    <a className="">Contact</a>
-                    <a className="">Jobs</a>
-                    <a className="">Press kit</a>
+                    <a className="">About Us</a>
+                    <a className="">Contact Us</a>
+                    <a className="">Become a member</a>
                 </div>
                 <div className='flex flex-col w-full'>
                     <h6 className="footer-title">Legal</h6>
