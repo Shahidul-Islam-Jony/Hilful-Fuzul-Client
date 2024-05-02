@@ -1,8 +1,8 @@
 
 .wrapper{
     position: relative;
-    width: 750px;
-    height: 450px;
+    width: 800px;
+    height: 520px;
     background: transparent;
     border: 2px solid rgb(0, 89, 255);
     overflow: hidden;   /* For BG divider overflow hidden */
@@ -23,7 +23,7 @@
 /* padding from both side */
 .wrapper .form-box.login{
     left: 0;
-    padding: 0 60px 0 40px;
+    padding: 0 30px 0 40px;
 }
 
 .form-box h2{
@@ -226,7 +226,7 @@
 
 .wrapper .form-box.register{
     right: 0;
-    padding: 0 40px 0 60px;
+    padding: 0 30px 0 60px;
     /* display: none; */
     pointer-events: none;
 }

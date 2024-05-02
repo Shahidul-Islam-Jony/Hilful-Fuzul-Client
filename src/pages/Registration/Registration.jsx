@@ -3,8 +3,8 @@ import { AuthContext } from "../../providers/AuthProvider";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import swal from "sweetalert";
-import { FaImage, FaLock, FaUser } from "react-icons/fa";
-import { MdEmail } from "react-icons/md";
+import { FaImage, FaEyeSlash, FaUser,FaEye } from "react-icons/fa";
+import { MdEmail,MdOutlinePhoneIphone } from "react-icons/md";
 import PropTypes from 'prop-types';
 
 
@@ -16,6 +16,8 @@ const Registration = ({ setIsClicked }) => {
 
     const { createUser, updateUser } = useContext(AuthContext);
     const [imageUrl, setImageUrl] = useState("");
+
+    const [isVisible,setIsVisible] = useState(false);
 
     // Upload Image into imageBB
     const handleUploadImageBB = async (e) => {
@@ -116,9 +118,16 @@ const Registration = ({ setIsClicked }) => {
                         </span>
                     </div>
                     <div className="input-box animation" style={{ '--i': 21, '--j': 4 }}>
-                        <input type="password" name="password" required />
+                        <input type="text" name="phone" required />
+                        <label>Phone number</label>
+                        <MdOutlinePhoneIphone className="icon" />
+                    </div>
+                    <div className="input-box animation" style={{ '--i': 22, '--j': 5 }}>
+                        <input type={`${isVisible?'text':'password'}`} name="password" required />
                         <label>Password</label>
-                        <FaLock className="icon" />
+                        {
+                            isVisible ? <FaEye onClick={()=>setIsVisible(false)} className="icon" />: <FaEyeSlash onClick={()=>setIsVisible(true)} className="icon" />
+                        }
                     </div>
                     <button type="submit" className="btn1 animation" style={{ '--i': 21, '--j': 4 }}>Sign Up</button>
 

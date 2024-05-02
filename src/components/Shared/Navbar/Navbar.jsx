@@ -2,6 +2,10 @@ import { Link, NavLink } from "react-router-dom";
 import { IoMdCloseCircleOutline, IoMdLogIn, IoIosContact } from "react-icons/io";
 import { IoHomeOutline } from "react-icons/io5";
 import { FaPeopleGroup } from "react-icons/fa6";
+import { TbCoinTakaFilled } from "react-icons/tb";
+import { FaMoneyCheckAlt } from "react-icons/fa";
+import { GiReceiveMoney } from "react-icons/gi";
+import { LiaPeopleCarrySolid } from "react-icons/lia";
 import './active.css'
 import { useContext, useState } from "react";
 import { AuthContext } from "../../../providers/AuthProvider";
@@ -68,8 +72,22 @@ const Navbar = () => {
                                 {
                                     isProfileClick && <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
                                         <Link onClick={handleLogout} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><RiLogoutCircleLine /> Logout</Link>
-                                        <Link className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2">Hello</Link>
-                                        <Link className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2">Test</Link>
+                                        <Link className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><TbCoinTakaFilled /> See Total Money</Link>
+                                        {
+                                            user && <div>
+                                                <Link className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><FaMoneyCheckAlt /> Add Money</Link>
+                                            </div>
+                                        }
+                                        {
+                                            user && <div>
+                                                <Link className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><GiReceiveMoney /> Add Cost</Link>
+                                            </div>
+                                        }
+                                        {
+                                            user && <div>
+                                                <Link className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><LiaPeopleCarrySolid /> Benifited People</Link>
+                                            </div>
+                                        }
                                     </ul>
                                 }
                             </div>
