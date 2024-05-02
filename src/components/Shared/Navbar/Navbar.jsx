@@ -48,6 +48,11 @@ const Navbar = () => {
                         <NavLink to='/' className="text-base hover:bg-green-800 hover:text-white rounded-md py-1 px-2 flex items-center gap-1"><IoHomeOutline /> Home</NavLink>
                         <NavLink to='/contact' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><IoIosContact /> Contact Us</NavLink>
                         <NavLink to='/about' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><FaPeopleGroup /> About Us</NavLink>
+                        {
+                            user && <div>
+                                <NavLink to='/about' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><FaPeopleGroup />All Members</NavLink>
+                            </div>
+                        }
                     </ul>
                 </div>
                 <div className="navbar-end">
