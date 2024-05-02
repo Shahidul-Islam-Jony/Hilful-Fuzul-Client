@@ -10,7 +10,7 @@ const PrivateRoute = ({ children }) => {
     // console.log(location);
 
     if (loading) {
-        return <div className="flex justify-center">
+        return <div className="flex justify-center mt-32">
             <Audio
                 height="100"
                 width="100"

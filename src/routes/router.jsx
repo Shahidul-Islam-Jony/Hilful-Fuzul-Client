@@ -3,6 +3,8 @@ import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
+import PrivateRoute from "./PrivateRoute";
+import AllMembers from "../pages/AllMembers/AllMembers";
 
 const router = createBrowserRouter([
     {
@@ -17,6 +19,9 @@ const router = createBrowserRouter([
             {
                 path:'login',
                 element:<Login></Login>
+            },{
+                path:'allMembers',
+                element:<PrivateRoute><AllMembers></AllMembers></PrivateRoute>
             }
         ]
     }
