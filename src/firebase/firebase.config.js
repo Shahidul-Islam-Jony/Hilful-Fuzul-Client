@@ -16,4 +16,6 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+console.log('This is from firebase console',import.meta.env.VITE_APIKEY);
+
 export default app;
