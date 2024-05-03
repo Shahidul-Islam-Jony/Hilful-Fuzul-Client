@@ -3,9 +3,11 @@ import { AuthContext } from "../../providers/AuthProvider";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import swal from "sweetalert";
-import { FaImage, FaEyeSlash, FaUser,FaEye } from "react-icons/fa";
-import { MdEmail,MdOutlinePhoneIphone } from "react-icons/md";
+import { FaImage, FaEyeSlash, FaUser, FaEye } from "react-icons/fa";
+import { MdEmail, MdOutlinePhoneIphone } from "react-icons/md";
 import PropTypes from 'prop-types';
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { useNavigate } from "react-router-dom";
 
 
 // ImageBB api
@@ -17,7 +19,10 @@ const Registration = ({ setIsClicked }) => {
     const { createUser, updateUser } = useContext(AuthContext);
     const [imageUrl, setImageUrl] = useState("");
 
-    const [isVisible,setIsVisible] = useState(false);
+    const [isVisible, setIsVisible] = useState(false);
+
+    const axiosPublic = useAxiosPublic();
+    const navigate = useNavigate();
 
     // Upload Image into imageBB
     const handleUploadImageBB = async (e) => {
@@ -41,7 +46,9 @@ const Registration = ({ setIsClicked }) => {
         const name = form.name.value;
         const email = form.email.value;
         const password = form.password.value;
-        // console.log(name,email,photoUrl,password);
+        const phoneNumber = form.phone.value;
+        const userType = 'user';
+        // console.log(name,email,imageUrl,password,phoneNumber,userType);
         if (password.length < 6) {
             toast.error('Password should be 6 character or longer!', {
                 position: "top-center",
@@ -75,11 +82,24 @@ const Registration = ({ setIsClicked }) => {
                 // update user name and photo
                 updateUser(name, imageUrl)
                     .then(() => {
-                        swal("Done!", "Registration successful", "success")
-                        // logout user and navigate to login
-                        // logout()
-                        //     .then(() => { })
-                        //     .catch(error => console.log(error))
+
+                        // object for database
+                        const userInfo = {
+                            name,
+                            email,
+                            photoUrl:imageUrl,
+                            phoneNumber,
+                            type:userType
+                        }
+
+                        // call api to send userInfo to database
+                        axiosPublic.post('/users', userInfo)
+                            .then(res => {
+                                if (res.data._id) {
+                                    swal("Done!", "Registration successful", "success");
+                                    navigate('/');
+                                }
+                            })
 
                     })
                     .catch(error => {
@@ -123,10 +143,10 @@ const Registration = ({ setIsClicked }) => {
                         <MdOutlinePhoneIphone className="icon" />
                     </div>
                     <div className="input-box animation" style={{ '--i': 22, '--j': 5 }}>
-                        <input type={`${isVisible?'text':'password'}`} name="password" required />
+                        <input type={`${isVisible ? 'text' : 'password'}`} name="password" required />
                         <label>Password</label>
                         {
-                            isVisible ? <FaEye onClick={()=>setIsVisible(false)} className="icon" />: <FaEyeSlash onClick={()=>setIsVisible(true)} className="icon" />
+                            isVisible ? <FaEye onClick={() => setIsVisible(false)} className="icon" /> : <FaEyeSlash onClick={() => setIsVisible(true)} className="icon" />
                         }
                     </div>
                     <button type="submit" className="btn1 animation" style={{ '--i': 21, '--j': 4 }}>Sign Up</button>
