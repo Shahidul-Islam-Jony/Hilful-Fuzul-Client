@@ -4,7 +4,8 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import swal from "sweetalert";
 import { FaImage, FaEyeSlash, FaUser, FaEye } from "react-icons/fa";
-import { MdEmail, MdOutlinePhoneIphone } from "react-icons/md";
+import { MdEmail } from "react-icons/md";
+// import { MdOutlinePhoneIphone } from "react-icons/md";
 import PropTypes from 'prop-types';
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { useNavigate } from "react-router-dom";
@@ -46,7 +47,7 @@ const Registration = ({ setIsClicked }) => {
         const name = form.name.value;
         const email = form.email.value;
         const password = form.password.value;
-        const phoneNumber = form.phone.value;
+        // const phoneNumber = form.phone.value;
         const userType = 'user';
         // console.log(name,email,imageUrl,password,phoneNumber,userType);
         if (password.length < 6) {
@@ -88,7 +89,7 @@ const Registration = ({ setIsClicked }) => {
                             name,
                             email,
                             photoUrl:imageUrl,
-                            phoneNumber,
+                            // phoneNumber,
                             type:userType
                         }
 
@@ -137,11 +138,11 @@ const Registration = ({ setIsClicked }) => {
                             <FaImage className="text-xl" />
                         </span>
                     </div>
-                    <div className="input-box animation" style={{ '--i': 21, '--j': 4 }}>
+                    {/* <div className="input-box animation" style={{ '--i': 21, '--j': 4 }}>
                         <input type="text" name="phone" required />
                         <label>Phone number</label>
                         <MdOutlinePhoneIphone className="icon" />
-                    </div>
+                    </div> */}
                     <div className="input-box animation" style={{ '--i': 22, '--j': 5 }}>
                         <input type={`${isVisible ? 'text' : 'password'}`} name="password" required />
                         <label>Password</label>

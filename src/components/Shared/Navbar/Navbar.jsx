@@ -1,11 +1,12 @@
 import { Link, NavLink } from "react-router-dom";
 import { IoMdCloseCircleOutline, IoMdLogIn, IoIosContact } from "react-icons/io";
 import { IoHomeOutline } from "react-icons/io5";
-import { FaPeopleGroup } from "react-icons/fa6";
+import { FaPeopleGroup, FaPeopleRoof } from "react-icons/fa6";
 import { TbCoinTakaFilled } from "react-icons/tb";
 import { FaMoneyCheckAlt } from "react-icons/fa";
 import { GiReceiveMoney } from "react-icons/gi";
 import { LiaPeopleCarrySolid } from "react-icons/lia";
+import { BsPeopleFill } from "react-icons/bs";
 import './active.css'
 import { useContext, useState } from "react";
 import { AuthContext } from "../../../providers/AuthProvider";
@@ -37,10 +38,13 @@ const Navbar = () => {
                             isOpen ? <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[50] p-2 shadow bg-base-100 rounded-box w-52">
                                 <NavLink to='/' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><IoHomeOutline /> Home</NavLink>
                                 <NavLink to='/contact' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><IoIosContact /> Contact Us</NavLink>
-                                <NavLink to='/about' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><FaPeopleGroup /> About Us</NavLink>
+                                <NavLink to='/about' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><BsPeopleFill /> About Us</NavLink>
                                 {
                                     user && <div>
-                                        <NavLink to='/allMembers' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><FaPeopleGroup />All Members</NavLink>
+                                        <NavLink to='/allMembers' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><FaPeopleGroup /> All Members</NavLink>
+
+                                        <NavLink to='/becomeMember' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><FaPeopleRoof /> Become a member</NavLink>
+
                                     </div>
                                 }
                             </ul> : ''
@@ -56,10 +60,12 @@ const Navbar = () => {
                     <ul className="menu menu-horizontal px-1 gap-2">
                         <NavLink to='/' className="text-base hover:bg-green-800 hover:text-white rounded-md py-1 px-2 flex items-center gap-1"><IoHomeOutline /> Home</NavLink>
                         <NavLink to='/contact' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><IoIosContact /> Contact Us</NavLink>
-                        <NavLink to='/about' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><FaPeopleGroup /> About Us</NavLink>
+                        <NavLink to='/about' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><BsPeopleFill /> About Us</NavLink>
                         {
-                            user && <div>
-                                <NavLink to='/allMembers' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><FaPeopleGroup />All Members</NavLink>
+                            user && <div className="flex">
+                                <NavLink to='/allMembers' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><FaPeopleGroup /> All Members</NavLink>
+                                <NavLink to='/becomeMember' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><FaPeopleRoof /> Become a member</NavLink>
+
                             </div>
                         }
                     </ul>

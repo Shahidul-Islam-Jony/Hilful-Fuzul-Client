@@ -5,6 +5,7 @@ import Login from "../pages/Login/Login";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import PrivateRoute from "./PrivateRoute";
 import AllMembers from "../pages/AllMembers/AllMembers";
+import BecomeMember from "../pages/BecomeMember/BecomeMember";
 
 const router = createBrowserRouter([
     {
@@ -19,9 +20,14 @@ const router = createBrowserRouter([
             {
                 path:'login',
                 element:<Login></Login>
-            },{
+            },
+            {
                 path:'allMembers',
                 element:<PrivateRoute><AllMembers></AllMembers></PrivateRoute>
+            },
+            {
+                path:'becomeMember',
+                element:<PrivateRoute><BecomeMember></BecomeMember></PrivateRoute>
             }
         ]
     }
