@@ -13,7 +13,7 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 const Login = () => {
     const [isClicked, setIsClicked] = useState(false);
 
-    const { login, loginByGoogle } = useContext(AuthContext);
+    const { login, loginByGoogle,loginByFB } = useContext(AuthContext);
     const axiosPublic = useAxiosPublic();
 
     const navigate = useNavigate();
@@ -36,6 +36,7 @@ const Login = () => {
             })
     }
 
+    // Login By Google
     const handleLoginByGoogle = () => {
         loginByGoogle()
             .then(res => {
@@ -47,6 +48,34 @@ const Login = () => {
                     // phoneNumber,
                     type: 'user'
                 }
+                // call api to send userInfo to database
+                axiosPublic.post('/users', userInfo)
+                    .then(res => {
+                        if (res.data._id) {
+                            swal("Login successful", "success");
+                            navigate(location.state || '/');
+                        }
+                    })
+            })
+            .catch(error => {
+                swal("Oops", { error }, "error");
+                return;
+            })
+    }
+
+    // Login By Facebook
+    const handleLoginByFacebook = () => {
+        loginByFB()
+            .then(res => {
+                console.log(res);
+                const userInfo = {
+                    name: res.user?.displayName,
+                    email: res.user?.email,
+                    photoUrl: res.user?.photoURL,
+                    // phoneNumber,
+                    type: 'user'
+                }
+                console.log(userInfo);
                 // call api to send userInfo to database
                 axiosPublic.post('/users', userInfo)
                     .then(res => {
@@ -93,7 +122,7 @@ const Login = () => {
 
                                 <div className="animation flex gap-2 mt-4" style={{ '--i': 5, '--j': 26 }}>
                                     <button onClick={handleLoginByGoogle} className="btn btn-outline w-1/2 btn-sm hover:bg-blue-800"><FcGoogle /> Google</button>
-                                    <button className="btn btn-outline w-1/2 btn-sm hover:bg-blue-800"><FaFacebook /> Facebook</button>
+                                    <button onClick={handleLoginByFacebook} className="btn btn-outline w-1/2 btn-sm hover:bg-blue-800"><FaFacebook /> Facebook</button>
                                 </div>
 
                                 <div className="logreg-link animation" style={{ '--i': 6, '--j': 27 }}>
