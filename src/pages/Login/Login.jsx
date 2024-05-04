@@ -8,11 +8,13 @@ import { FcGoogle } from "react-icons/fc";
 import swal from "sweetalert";
 import Registration from "../Registration/Registration";
 import './LoginStyle.css';
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const Login = () => {
     const [isClicked, setIsClicked] = useState(false);
 
     const { login, loginByGoogle } = useContext(AuthContext);
+    const axiosPublic = useAxiosPublic();
 
     const navigate = useNavigate();
 
@@ -36,10 +38,23 @@ const Login = () => {
 
     const handleLoginByGoogle = () => {
         loginByGoogle()
-            .then(result => {
-                console.log(result);
-                swal("Login successful", "success");
-                navigate(location.state || '/');
+            .then(res => {
+                console.log(res);
+                const userInfo = {
+                    name: res.user?.displayName,
+                    email: res.user?.email,
+                    photoUrl: res.user?.photoURL,
+                    // phoneNumber,
+                    type: 'user'
+                }
+                // call api to send userInfo to database
+                axiosPublic.post('/users', userInfo)
+                    .then(res => {
+                        if (res.data._id) {
+                            swal("Login successful", "success");
+                            navigate(location.state || '/');
+                        }
+                    })
             })
             .catch(error => {
                 swal("Oops", { error }, "error");
