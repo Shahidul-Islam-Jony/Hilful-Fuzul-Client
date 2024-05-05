@@ -46,8 +46,10 @@ const Login = () => {
                     email: res.user?.email,
                     photoUrl: res.user?.photoURL,
                     // phoneNumber,
-                    type: 'user'
+                    type: 'user',
+                    uid:res.user?.uid,
                 }
+                // console.log(userInfo);
                 // call api to send userInfo to database
                 axiosPublic.post('/users', userInfo)
                     .then(res => {
@@ -73,9 +75,10 @@ const Login = () => {
                     email: res.user?.email,
                     photoUrl: res.user?.photoURL,
                     // phoneNumber,
-                    type: 'user'
+                    type: 'user',
+                    uid:res.user?.uid,
                 }
-                console.log(userInfo);
+                // console.log(userInfo);
                 // call api to send userInfo to database
                 axiosPublic.post('/users', userInfo)
                     .then(res => {

@@ -1,7 +1,17 @@
 /* eslint-disable react/no-unescaped-entities */
 
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
+import useGetSingleUser from "../../hooks/useGetSingleUser";
+
 
 const BecomeMember = () => {
+    const {user} = useContext(AuthContext);
+    // console.log(user);
+
+    const [userData] = useGetSingleUser(user?.uid);
+    console.log(userData);
+
     return (
         <div className="mt-32 w-11/12 mx-auto">
             <div className="">
