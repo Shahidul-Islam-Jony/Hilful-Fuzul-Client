@@ -1,8 +1,9 @@
 import './FooterStyle.css'
 
 const Footer = () => {
+    
     return (
-        <div className='mt-96'>
+        <div className='mt-36'>
 
             <footer className="flex flex-col md:flex-row text-white justify-between bg-blue-450">
                 {/* waves start*/}

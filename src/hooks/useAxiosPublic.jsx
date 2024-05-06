@@ -9,7 +9,7 @@ const axiosPublic = axios.create({
 
 // http://localhost:5000
 
-const useAxiosPublic = ()=>{
+const useAxiosPublic = () => {
     return axiosPublic;
 }
 

@@ -27,7 +27,7 @@ const BecomeMember = () => {
         const phone = form.phone.value;
         const village = form.village.value;
         const divission = form.divission.value;
-        console.log(name, father, email, phone, village, divission);
+        // console.log(name, father, email, phone, village, divission);
 
         const member = {
             name,
@@ -44,6 +44,7 @@ const BecomeMember = () => {
                 if (res.status === 200) {
 
                     swal("Alhamdulillah !", "Now you are a member of Hilful Fuzul", "success");
+                    form.reset();
                     navigate('/');
                 }
             })
