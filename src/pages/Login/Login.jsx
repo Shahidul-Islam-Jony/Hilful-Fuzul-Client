@@ -13,7 +13,7 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 const Login = () => {
     const [isClicked, setIsClicked] = useState(false);
 
-    const { login, loginByGoogle,loginByFB } = useContext(AuthContext);
+    const { login, loginByGoogle, loginByFB } = useContext(AuthContext);
     const axiosPublic = useAxiosPublic();
 
     const navigate = useNavigate();
@@ -45,9 +45,12 @@ const Login = () => {
                     name: res.user?.displayName,
                     email: res.user?.email,
                     photoUrl: res.user?.photoURL,
-                    // phoneNumber,
                     type: 'user',
-                    uid:res.user?.uid,
+                    uid: res.user?.uid,
+                    father: ' ',        // when update member it will need
+                    phone: 0,
+                    village: ' ',
+                    divission: ' ',
                 }
                 // console.log(userInfo);
                 // call api to send userInfo to database
@@ -74,9 +77,12 @@ const Login = () => {
                     name: res.user?.displayName,
                     email: res.user?.email,
                     photoUrl: res.user?.photoURL,
-                    // phoneNumber,
                     type: 'user',
-                    uid:res.user?.uid,
+                    uid: res.user?.uid,
+                    father: '',        // when update member it will need
+                    phone: 0,
+                    village: '',
+                    divission: '',
                 }
                 // console.log(userInfo);
                 // call api to send userInfo to database

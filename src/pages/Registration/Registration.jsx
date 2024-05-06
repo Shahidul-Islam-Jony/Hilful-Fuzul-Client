@@ -78,34 +78,30 @@ const Registration = ({ setIsClicked }) => {
         }
         // console.log(name,email,photoUrl,password);
         createUser(email, password)
-            .then(result => {
+            .then((result) => {
                 console.log(result);
                 // update user name and photo
                 updateUser(name, imageUrl)
-                    .then(() => {
-
-                        // object for database
-                        const userInfo = {
-                            name,
-                            email,
-                            photoUrl:imageUrl,
-                            // phoneNumber,
-                            type:userType
+                const userInfo = {
+                    name,
+                    email,
+                    photoUrl: imageUrl,
+                    type: userType,
+                    uid: result.user?.uid,
+                    father: ' ',          // when update member it will need
+                    phone: 0,
+                    village: ' ',
+                    divission: ' ',
+                }
+                console.log(userInfo);
+                // call api to send userInfo to database
+                axiosPublic.post('/users', userInfo)
+                    .then(res => {
+                        if (res?.data?._id) {
+                            swal("Done!", "Registration successful", "success");
+                            navigate('/');
                         }
-
-                        // call api to send userInfo to database
-                        axiosPublic.post('/users', userInfo)
-                            .then(res => {
-                                if (res.data._id) {
-                                    swal("Done!", "Registration successful", "success");
-                                    navigate('/');
-                                }
-                            })
-
-                    })
-                    .catch(error => {
-                        swal("Oops", { error }, "error");
-                        return;
+                        console.log(res);
                     })
 
             })
