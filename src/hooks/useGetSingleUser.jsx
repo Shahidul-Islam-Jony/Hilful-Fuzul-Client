@@ -11,7 +11,7 @@ const useGetSingleUser = (uid) => {
             return res.data;
         }
     })
-    console.log(userData);
+    // console.log(userData);
     return [userData,isLoading,refetch];
 }
 

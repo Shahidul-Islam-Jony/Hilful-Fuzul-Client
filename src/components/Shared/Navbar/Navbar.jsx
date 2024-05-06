@@ -74,6 +74,8 @@ const Navbar = () => {
                         }
                     </ul>
                 </div>
+
+                {/* User Icon Routes || Navbar End */}
                 <div className="navbar-end">
                     {
                         user ? <div className="flex items-center gap-4">
@@ -84,26 +86,26 @@ const Navbar = () => {
                                         <Link onClick={handleLogout} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><RiLogoutCircleLine /> Logout</Link>
                                         {
                                             (userData.type === 'member' || userData.type === 'admin' || userData.type === 'superAdmin') &&
-                                            <Link className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><TbCoinTakaFilled /> See Total Money</Link>
+                                            <Link onClick={()=>setIsProfileClicked(false)} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><TbCoinTakaFilled /> See Total Money</Link>
                                         }
                                         {
                                             (userData.type === 'admin' || userData.type === 'superAdmin') && <div>
-                                                <Link className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><FaMoneyCheckAlt /> Add Money</Link>
+                                                <Link to='/addMoney' onClick={()=>setIsProfileClicked(false)} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><FaMoneyCheckAlt /> Add Money</Link>
                                             </div>
                                         }
                                         {
                                             (userData.type === 'superAdmin') && <div>
-                                                <Link className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><GiReceiveMoney /> Add Cost</Link>
+                                                <Link onClick={()=>setIsProfileClicked(false)} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><GiReceiveMoney /> Add Cost</Link>
                                             </div>
                                         }
                                         {
                                             userData.type === 'superAdmin' && <div>
-                                                <Link className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><LiaPeopleCarrySolid /> Benifited People</Link>
+                                                <Link onClick={()=>setIsProfileClicked(false)} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><LiaPeopleCarrySolid /> Benifited People</Link>
                                             </div>
                                         }
                                         {
                                             userData.type === 'superAdmin' && <div>
-                                                <Link className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><FaPeopleGroup />Site All Members </Link>
+                                                <Link onClick={()=>setIsProfileClicked(false)} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><FaPeopleGroup />Site All Members </Link>
                                             </div>
                                         }
                                     </ul>
