@@ -11,12 +11,16 @@ import './active.css'
 import { useContext, useState } from "react";
 import { AuthContext } from "../../../providers/AuthProvider";
 import { RiLogoutCircleLine } from "react-icons/ri";
+import useGetSingleUser from "../../../hooks/useGetSingleUser";
 
 const Navbar = () => {
     const { user, logout } = useContext(AuthContext);
     // console.log(user);
     const [isOpen, setIsOpen] = useState(false);
     const [isProfileClick, setIsProfileClicked] = useState(false);
+
+    const [userData] = useGetSingleUser(user?.uid);
+    // console.log(userData);
 
     const handleLogout = () => {
         logout();
@@ -40,7 +44,7 @@ const Navbar = () => {
                                 <NavLink to='/contact' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><IoIosContact /> Contact Us</NavLink>
                                 <NavLink to='/about' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><BsPeopleFill /> About Us</NavLink>
                                 {
-                                    user && <div>
+                                    (userData.type === 'member' || userData.type === 'admin' || userData.type === 'superAdmin') && <div>
                                         <NavLink to='/allMembers' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><FaPeopleGroup /> All Members</NavLink>
 
                                         <NavLink to='/becomeMember' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><FaPeopleRoof /> Become a member</NavLink>
@@ -62,7 +66,7 @@ const Navbar = () => {
                         <NavLink to='/contact' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><IoIosContact /> Contact Us</NavLink>
                         <NavLink to='/about' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><BsPeopleFill /> About Us</NavLink>
                         {
-                            user && <div className="flex">
+                            (userData.type === 'member' || userData.type === 'admin' || userData.type === 'superAdmin') && <div className="flex">
                                 <NavLink to='/allMembers' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><FaPeopleGroup /> All Members</NavLink>
                                 <NavLink to='/becomeMember' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><FaPeopleRoof /> Become a member</NavLink>
 
@@ -78,20 +82,28 @@ const Navbar = () => {
                                 {
                                     isProfileClick && <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
                                         <Link onClick={handleLogout} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><RiLogoutCircleLine /> Logout</Link>
-                                        <Link className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><TbCoinTakaFilled /> See Total Money</Link>
                                         {
-                                            user && <div>
+                                            (userData.type === 'member' || userData.type === 'admin' || userData.type === 'superAdmin') &&
+                                            <Link className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><TbCoinTakaFilled /> See Total Money</Link>
+                                        }
+                                        {
+                                            (userData.type === 'admin' || userData.type === 'superAdmin') && <div>
                                                 <Link className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><FaMoneyCheckAlt /> Add Money</Link>
                                             </div>
                                         }
                                         {
-                                            user && <div>
+                                            (userData.type === 'superAdmin') && <div>
                                                 <Link className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><GiReceiveMoney /> Add Cost</Link>
                                             </div>
                                         }
                                         {
-                                            user && <div>
+                                            userData.type === 'superAdmin' && <div>
                                                 <Link className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><LiaPeopleCarrySolid /> Benifited People</Link>
+                                            </div>
+                                        }
+                                        {
+                                            userData.type === 'superAdmin' && <div>
+                                                <Link className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><FaPeopleGroup />Site All Members </Link>
                                             </div>
                                         }
                                     </ul>

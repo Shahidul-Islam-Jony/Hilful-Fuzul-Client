@@ -4,7 +4,7 @@ import useAxiosPublic from "./useAxiosPublic"
 const useGetSingleUser = (uid) => {
     const axiosPublic = useAxiosPublic();
 
-    const { data: userData = {}, isLoading: loading, refetch } = useQuery({
+    const { data: userData = {}, isLoading, refetch } = useQuery({
         queryKey: [uid],
         queryFn: async () => {
             const res = await axiosPublic.get(`/single/user/${uid}`)
@@ -12,7 +12,7 @@ const useGetSingleUser = (uid) => {
         }
     })
     console.log(userData);
-    return [userData,loading,refetch];
+    return [userData,isLoading,refetch];
 }
 
 export default useGetSingleUser;

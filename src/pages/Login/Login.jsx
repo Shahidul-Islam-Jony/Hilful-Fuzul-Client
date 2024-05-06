@@ -3,7 +3,7 @@ import { useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import { MdEmail } from "react-icons/md";
-import { FaFacebook, FaLock } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import swal from "sweetalert";
 import Registration from "../Registration/Registration";
@@ -12,6 +12,7 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const Login = () => {
     const [isClicked, setIsClicked] = useState(false);
+    const [isVisible, setIsVisible] = useState(false);
 
     const { login, loginByGoogle, loginByFB } = useContext(AuthContext);
     const axiosPublic = useAxiosPublic();
@@ -120,9 +121,11 @@ const Login = () => {
                                     <MdEmail className="icon" />
                                 </div>
                                 <div className="input-box animation" style={{ '--i': 2, '--j': 23 }}>
-                                    <input type="password" name="password" required />
+                                    <input type={`${isVisible ? 'text' : 'password'}`} name="password" required />
                                     <label>Password</label>
-                                    <FaLock className="icon" />
+                                    {
+                                        isVisible ? <FaEye onClick={() => setIsVisible(false)} className="icon" /> : <FaEyeSlash onClick={() => setIsVisible(true)} className="icon" />
+                                    }
                                 </div>
                                 <button type="submit" className="btn1 animation" style={{ '--i': 3, '--j': 24 }}>Login</button>
 
