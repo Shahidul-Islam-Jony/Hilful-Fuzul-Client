@@ -23,7 +23,7 @@ const AllMembers = () => {
 
 
     if (isLoading) {
-        return <span className="loading loading-spinner text-2xl text-primary"></span>
+        return <div className="flex justify-center"><span className="loading loading-spinner text-5xl text-primary mt-36 text-center"></span></div>
     }
 
     return (
@@ -39,7 +39,7 @@ const AllMembers = () => {
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="border-2 border-gray-500 w-80 md:w-[420px] rounded-md p-2"
                 />
-                <span className="absolute right-5 md:left-1/3"><IoSearch className="text-gray-400"/></span>
+                <span className="absolute right-5 md:left-1/3"><IoSearch className="text-gray-400" /></span>
             </div>
 
             <div className="overflow-x-auto">

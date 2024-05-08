@@ -3,7 +3,7 @@ import { IoMdCloseCircleOutline, IoMdLogIn, IoIosContact } from "react-icons/io"
 import { IoHomeOutline } from "react-icons/io5";
 import { FaPeopleGroup, FaPeopleRoof } from "react-icons/fa6";
 import { TbCoinTakaFilled } from "react-icons/tb";
-import { FaMoneyCheckAlt } from "react-icons/fa";
+// import { FaMoneyCheckAlt } from "react-icons/fa";
 import { GiReceiveMoney } from "react-icons/gi";
 import { LiaPeopleCarrySolid } from "react-icons/lia";
 import { BsPeopleFill } from "react-icons/bs";
@@ -44,7 +44,7 @@ const Navbar = () => {
                                 <NavLink to='/contact' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><IoIosContact /> Contact Us</NavLink>
                                 <NavLink to='/about' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><BsPeopleFill /> About Us</NavLink>
                                 {
-                                    (userData.type === 'member' || userData.type === 'admin' || userData.type === 'superAdmin') && <div>
+                                    userData && <div>
                                         <NavLink to='/allMembers' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><FaPeopleGroup /> All Members</NavLink>
 
                                         <NavLink to='/becomeMember' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><FaPeopleRoof /> Become a member</NavLink>
@@ -66,7 +66,7 @@ const Navbar = () => {
                         <NavLink to='/contact' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><IoIosContact /> Contact Us</NavLink>
                         <NavLink to='/about' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><BsPeopleFill /> About Us</NavLink>
                         {
-                            (userData.type === 'member' || userData.type === 'admin' || userData.type === 'superAdmin') && <div className="flex">
+                            userData && <div className="flex">
                                 <NavLink to='/allMembers' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><FaPeopleGroup /> All Members</NavLink>
                                 <NavLink to='/becomeMember' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><FaPeopleRoof /> Become a member</NavLink>
 
@@ -86,26 +86,26 @@ const Navbar = () => {
                                         <Link onClick={handleLogout} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><RiLogoutCircleLine /> Logout</Link>
                                         {
                                             (userData.type === 'member' || userData.type === 'admin' || userData.type === 'superAdmin') &&
-                                            <Link onClick={()=>setIsProfileClicked(false)} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><TbCoinTakaFilled /> See Total Money</Link>
+                                            <Link onClick={() => setIsProfileClicked(false)} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><TbCoinTakaFilled /> See Total Money</Link>
                                         }
-                                        {
+                                        {/* {
                                             (userData.type === 'admin' || userData.type === 'superAdmin') && <div>
-                                                <Link to='/addMoney' onClick={()=>setIsProfileClicked(false)} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><FaMoneyCheckAlt /> Add Money</Link>
+                                                <Link to='/addMoney' onClick={() => setIsProfileClicked(false)} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><FaMoneyCheckAlt /> Add Money</Link>
                                             </div>
-                                        }
+                                        } */}
                                         {
                                             (userData.type === 'superAdmin') && <div>
-                                                <Link onClick={()=>setIsProfileClicked(false)} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><GiReceiveMoney /> Add Cost</Link>
+                                                <Link onClick={() => setIsProfileClicked(false)} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><GiReceiveMoney /> Add Cost</Link>
                                             </div>
                                         }
                                         {
                                             userData.type === 'superAdmin' && <div>
-                                                <Link onClick={()=>setIsProfileClicked(false)} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><LiaPeopleCarrySolid /> Benifited People</Link>
+                                                <Link onClick={() => setIsProfileClicked(false)} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><LiaPeopleCarrySolid /> Benifited People</Link>
                                             </div>
                                         }
                                         {
                                             userData.type === 'superAdmin' && <div>
-                                                <Link onClick={()=>setIsProfileClicked(false)} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><FaPeopleGroup />Site All Members </Link>
+                                                <Link onClick={() => setIsProfileClicked(false)} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><FaPeopleGroup />Site All Members </Link>
                                             </div>
                                         }
                                     </ul>
