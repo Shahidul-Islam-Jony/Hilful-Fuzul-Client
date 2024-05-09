@@ -111,8 +111,10 @@ const AddMoney = () => {
         try {
             await axiosPublic.post('/add/money', userInfo)
                 .then(res => {
+                    console.log(res);
                     if (res.status === 200) {
                         swal("Money added", "success");
+                        form.reset();
                     }
                 })
                 .then(error => {
@@ -151,7 +153,7 @@ const AddMoney = () => {
                         <label className="label">
                             <span className="text-xl font-medium">Amount of money</span>
                         </label>
-                        <input type="number" name='money' placeholder="Amount of Money" className="input rounded-md w-full border-blue-600" required />
+                        <input type="number" name='money' min="1" placeholder="Amount of Money" className="input rounded-md w-full border-blue-600" required />
                     </div>
                     <div className="form-control mt-6">
                         <input className='btn btn-outline border-blue-600 hover:bg-green-800 capitalize text-xl font-semibold' type="submit" value="Add Money" />
