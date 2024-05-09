@@ -65,7 +65,7 @@ const AddMoney = () => {
             // Send the user data to the backend
             await axiosPublic.post('/add/money', userInfo)
                 .then(res => {
-                    if (res.status === 200) {
+                    if (res.status === 200 || res.status === 201) {
                         swal("Money added", "success");
                     }
                 })
@@ -112,7 +112,7 @@ const AddMoney = () => {
             await axiosPublic.post('/add/money', userInfo)
                 .then(res => {
                     console.log(res);
-                    if (res.status === 200) {
+                    if (res.status === 200 || res.status === 201) {
                         swal("Money added", "success");
                         form.reset();
                     }
@@ -124,6 +124,11 @@ const AddMoney = () => {
         } catch (error) {
             console.error('Error sending user data:', error);
         }
+    };
+
+    // prevent changing amount on mouse wheel
+    const handleWheel = (e) => {
+        e.preventDefault();
     };
 
     return (
@@ -153,7 +158,7 @@ const AddMoney = () => {
                         <label className="label">
                             <span className="text-xl font-medium">Amount of money</span>
                         </label>
-                        <input type="number" name='money' min="1" placeholder="Amount of Money" className="input rounded-md w-full border-blue-600" required />
+                        <input type="number" name='money' min="1" onWheel={handleWheel} placeholder="Amount of Money" className="input rounded-md w-full border-blue-600 focus:outline-none focus:ring" required />
                     </div>
                     <div className="form-control mt-6">
                         <input className='btn btn-outline border-blue-600 hover:bg-green-800 capitalize text-xl font-semibold' type="submit" value="Add Money" />
