@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import useGetSingleUser from "../../hooks/useGetSingleUser";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import swal from "sweetalert";
 
 const AddMoney = () => {
     const { uid } = useParams();
@@ -62,8 +63,15 @@ const AddMoney = () => {
             };
 
             // Send the user data to the backend
-            await axiosPublic.post('/add/money', userInfo);
-            console.log('User data updated successfully.');
+            await axiosPublic.post('/add/money', userInfo)
+                .then(res => {
+                    if (res.status === 200) {
+                        swal("Money added", "success");
+                    }
+                })
+                .then(error => {
+                    swal("Oops", { error }, "error");
+                })
         } catch (error) {
             console.error('Error sending user data:', error);
         }
@@ -101,8 +109,16 @@ const AddMoney = () => {
 
         // Send the user data to the backend
         try {
-            await axiosPublic.post('/add/money', userInfo);
-            console.log('User data sent successfully.');
+            await axiosPublic.post('/add/money', userInfo)
+                .then(res => {
+                    if (res.status === 200) {
+                        swal("Money added", "success");
+                    }
+                })
+                .then(error => {
+                    swal("Oops", { error }, "error");
+                })
+
         } catch (error) {
             console.error('Error sending user data:', error);
         }

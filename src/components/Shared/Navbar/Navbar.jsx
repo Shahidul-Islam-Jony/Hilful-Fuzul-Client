@@ -86,7 +86,7 @@ const Navbar = () => {
                                         <Link onClick={handleLogout} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><RiLogoutCircleLine /> Logout</Link>
                                         {
                                             (userData.type === 'member' || userData.type === 'admin' || userData.type === 'superAdmin') &&
-                                            <Link onClick={() => setIsProfileClicked(false)} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><TbCoinTakaFilled /> See Total Money</Link>
+                                            <Link to='/see/total/money' onClick={() => setIsProfileClicked(false)} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><TbCoinTakaFilled /> See Total Money</Link>
                                         }
                                         {/* {
                                             (userData.type === 'admin' || userData.type === 'superAdmin') && <div>
