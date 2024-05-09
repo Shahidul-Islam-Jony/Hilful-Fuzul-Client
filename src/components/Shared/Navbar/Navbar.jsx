@@ -95,7 +95,7 @@ const Navbar = () => {
                                         } */}
                                         {
                                             (userData.type === 'superAdmin') && <div>
-                                                <Link onClick={() => setIsProfileClicked(false)} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><GiReceiveMoney /> Add Cost</Link>
+                                                <Link to="/add/cost" onClick={() => setIsProfileClicked(false)} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><GiReceiveMoney /> Add Cost</Link>
                                             </div>
                                         }
                                         {
