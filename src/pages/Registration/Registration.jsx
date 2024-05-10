@@ -9,6 +9,7 @@ import { MdEmail } from "react-icons/md";
 import PropTypes from 'prop-types';
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { useNavigate } from "react-router-dom";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 // ImageBB api
@@ -52,7 +53,7 @@ const Registration = ({ setIsClicked }) => {
         // console.log(name,email,imageUrl,password,phoneNumber,userType);
         if (password.length < 6) {
             toast.error('Password should be 6 character or longer!', {
-                position: "top-center",
+                position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -64,8 +65,8 @@ const Registration = ({ setIsClicked }) => {
             return;
         }
         if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,32}$/.test(password)) {
-            toast.error('Password should have atleast one Capital letter one small letter and one special character !', {
-                position: "top-center",
+            toast.error('Password should have atleast one Capital letter, one small letter, one special character and one number !', {
+                position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,
