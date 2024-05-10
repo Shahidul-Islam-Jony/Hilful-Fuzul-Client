@@ -3,6 +3,7 @@ import { IoMdCloseCircleOutline, IoMdLogIn, IoIosContact } from "react-icons/io"
 import { IoHomeOutline } from "react-icons/io5";
 import { FaPeopleGroup, FaPeopleRoof } from "react-icons/fa6";
 import { TbCoinTakaFilled } from "react-icons/tb";
+import { CgProfile } from "react-icons/cg";
 // import { FaMoneyCheckAlt } from "react-icons/fa";
 import { GiReceiveMoney } from "react-icons/gi";
 import { LiaPeopleCarrySolid } from "react-icons/lia";
@@ -84,6 +85,7 @@ const Navbar = () => {
                                 {
                                     isProfileClick && <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
                                         <Link onClick={handleLogout} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><RiLogoutCircleLine /> Logout</Link>
+                                        <Link to='/myProfile' className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><CgProfile /> My Profile</Link>
                                         {
                                             (userData.type === 'member' || userData.type === 'admin' || userData.type === 'superAdmin') &&
                                             <Link to='/see/total/money' onClick={() => setIsProfileClicked(false)} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><TbCoinTakaFilled /> See Total Money</Link>

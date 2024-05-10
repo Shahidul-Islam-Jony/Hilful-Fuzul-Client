@@ -9,6 +9,7 @@ import BecomeMember from "../pages/BecomeMember/BecomeMember";
 import AddMoney from "../pages/AddMoney/AddMoney";
 import SeeTotalMoney from "../pages/SeeTotalMoney/SeeTotalMoney";
 import AddCost from "../pages/AddCost/AddCost";
+import MyProfile from "../pages/MyProfile/MyProfile";
 
 const router = createBrowserRouter([
     {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
             {
                 path: 'login',
                 element: <Login></Login>
+            },
+            {
+                path: 'myProfile',
+                element: <MyProfile></MyProfile>
             },
             {
                 path: 'allMembers',
