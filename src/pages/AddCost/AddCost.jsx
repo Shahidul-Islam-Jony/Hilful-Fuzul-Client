@@ -1,8 +1,30 @@
 import swal from "sweetalert";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { useState } from "react";
+import { FaImage } from "react-icons/fa";
+import axios from "axios";
+
+const image_hosting_key = import.meta.env.VITE_ImageBB_API;
+const image_hosting_url = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const AddCost = () => {
     const axiosPublic = useAxiosPublic();
+    const [imageUrl, setImageUrl] = useState("");   //store image url
+
+    // Upload Image into imageBB
+    const handleUploadImageBB = async (e) => {
+        const image = e.target.files[0];
+        console.log(image);
+        const imageFile = { image: image };
+        console.log(imageFile);
+        const res = await axios.post(image_hosting_url, imageFile, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        });
+        console.log("Image url", res.data.data.display_url);
+        setImageUrl(res.data.data.display_url);
+    };
 
     const handleDonation = e => {
         e.preventDefault();
@@ -20,8 +42,9 @@ const AddCost = () => {
             village,
             divission,
             items,
+            itemsPicture: imageUrl,
             date,
-            money
+            money,
         }
         axiosPublic.post("/add/cost", donation)
             .then(res => {
@@ -71,6 +94,20 @@ const AddCost = () => {
                             </label>
                             <textarea name="items" className="textarea textarea-bordered h-24 rounded-md w-full border-blue-600" placeholder="List of Item" required></textarea>
                         </div>
+                        {/* Given Item image */}
+                        <div className="">
+                            <label className="label">
+                                <span className="text-xl font-medium">Given Item Picture</span>
+                            </label>
+                            <div className="relative">
+                                <div className="flex justify-between items-center px-4 border-2 border-blue-400 rounded-md hover:text-blue-500">
+                                    <input type="file" name="image" placeholder="image" onChange={handleUploadImageBB} className="relative w-full z-10 h-10 opacity-0" />
+                                    <FaImage className="text-xl" />
+                                </div>
+                                <p className="absolute top-2 left-5 opacity-50">{imageUrl ? imageUrl : "Upload Given Item's Photo"}</p>
+                            </div>
+                        </div>
+
                         <div>
                             <label className="label">
                                 <span className="text-xl font-medium">Date</span>
