@@ -84,7 +84,6 @@ const Navbar = () => {
                                 <div tabIndex={0} role="button" className=""> <img onClick={() => setIsProfileClicked(!isProfileClick)} src={user?.photoURL} title={user?.displayName} className="w-10 h-10 rounded-full border-2 shadow-lg border-blue-800 cursor-pointer" alt={user?.displayName} /></div>
                                 {
                                     isProfileClick && <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-                                        <Link onClick={handleLogout} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><RiLogoutCircleLine /> Logout</Link>
                                         <Link to='/myProfile' className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><CgProfile /> My Profile</Link>
                                         {
                                             (userData.type === 'member' || userData.type === 'admin' || userData.type === 'superAdmin') &&
@@ -110,6 +109,7 @@ const Navbar = () => {
                                                 <Link onClick={() => setIsProfileClicked(false)} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><FaPeopleGroup />Site All Members </Link>
                                             </div>
                                         }
+                                         <Link onClick={handleLogout} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><RiLogoutCircleLine /> Logout</Link>
                                     </ul>
                                 }
                             </div>
