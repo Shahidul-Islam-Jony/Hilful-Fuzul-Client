@@ -5,7 +5,7 @@ import { TbCoinTaka } from "react-icons/tb";
 const SeeTotalMoney = () => {
 
     const [Money] = useGetTotalMoney();
-    console.log(Money);
+    // console.log(Money);
 
     return (
         <div className="mt-28 w-11/12 mx-auto">

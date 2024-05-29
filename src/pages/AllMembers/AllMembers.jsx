@@ -2,17 +2,19 @@ import { useContext, useState } from "react";
 import useGetAllUsers from "../../hooks/useGetAllUsers";
 import { AuthContext } from "../../providers/AuthProvider";
 import useGetSingleUser from "../../hooks/useGetSingleUser";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoSearch } from "react-icons/io5";
 
 const AllMembers = () => {
 
     const { user } = useContext(AuthContext);
+    // console.log(user.uid);
     const [userData] = useGetSingleUser(user?.uid);     // loggedIn user data
     // console.log(userData);
     // console.log(user);
     const [usersData, isLoading] = useGetAllUsers('member');    //get only member type data
     // console.log(usersData);
+    const navigate = useNavigate();
 
     // for search member
     const [searchQuery, setSearchQuery] = useState("");
@@ -24,6 +26,12 @@ const AllMembers = () => {
 
     if (isLoading) {
         return <div className="flex justify-center"><span className="loading loading-spinner text-5xl text-primary mt-36 text-center"></span></div>
+    }
+
+    const handleOwnMonthlyMoney =uid =>{
+        if(uid === user?.uid){
+            navigate('/own/monthly/money');
+        }
     }
 
     return (
@@ -60,8 +68,8 @@ const AllMembers = () => {
                     <tbody>
                         {
                             filteredUsers?.map(user =>
-                                <tr key={user?._id}>
-                                    <td>
+                                <tr className="cursor-pointer" key={user?._id}>
+                                    <td onClick={()=>handleOwnMonthlyMoney(user?.uid)}>
                                         <div className="flex items-center gap-3">
                                             <div className="avatar">
                                                 <div className="mask mask-squircle w-12 h-12">
@@ -74,12 +82,12 @@ const AllMembers = () => {
                                             </div>
                                         </div>
                                     </td>
-                                    <td>{user?.email}</td>
-                                    <td>
+                                    <td onClick={()=>handleOwnMonthlyMoney(user?.uid)}>{user?.email}</td>
+                                    <td onClick={()=>handleOwnMonthlyMoney(user?.uid)}>
                                         <div>Divission : {user?.divission}</div>
                                         <div>Village : {user?.village}</div>
                                     </td>
-                                    <td>{user?.phone}</td>
+                                    <td onClick={()=>handleOwnMonthlyMoney(user?.uid)}>{user?.phone}</td>
                                     {
 
                                         (userData.type === 'admin' || userData.type === 'superAdmin') &&
