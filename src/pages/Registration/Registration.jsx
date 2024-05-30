@@ -64,19 +64,19 @@ const Registration = ({ setIsClicked }) => {
             });
             return;
         }
-        if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,32}$/.test(password)) {
-            toast.error('Password should have atleast one Capital letter, one small letter, one special character and one number !', {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
-            return;
-        }
+        // if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,32}$/.test(password)) {
+        //     toast.error('Password should have atleast one Capital letter, one small letter, one special character and one number !', {
+        //         position: "top-right",
+        //         autoClose: 5000,
+        //         hideProgressBar: false,
+        //         closeOnClick: true,
+        //         pauseOnHover: true,
+        //         draggable: true,
+        //         progress: undefined,
+        //         theme: "light",
+        //     });
+        //     return;
+        // }
         // console.log(name,email,photoUrl,password);
         createUser(email, password)
             .then((result) => {
