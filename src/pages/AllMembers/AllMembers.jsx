@@ -36,7 +36,7 @@ const AllMembers = () => {
   // Pagination ends here
 
   const handleOwnMonthlyMoney = (uid) => {
-    if (uid === user?.uid) {
+    if (uid === user?.uid || userData?.type === "superAdmin") {
       navigate("/own/monthly/money");
     }
   };

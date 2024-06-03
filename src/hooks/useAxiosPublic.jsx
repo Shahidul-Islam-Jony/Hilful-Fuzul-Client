@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const axiosPublic = axios.create({
-    baseURL: 'https://hilful-fuzul-server.vercel.app'
+    baseURL: 'http://localhost:5000'
 })
 
 // https://hilful-fuzul-server.vercel.app
