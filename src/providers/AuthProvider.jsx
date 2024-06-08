@@ -114,22 +114,37 @@ const AuthProvider = ({ children }) => {
   // };
   
   
-  const updateEmailForUser = async(currentPassword, newEmail) => {
-    const user = auth.currentUser;
-    const credential = EmailAuthProvider.credential(user.email, currentPassword);
+  // const updateEmailForUser = async(currentPassword, newEmail) => {
+  //   const user = auth.currentUser;
+  //   const credential = EmailAuthProvider.credential(user.email, currentPassword);
   
-    return reauthenticateWithCredential(user, credential)
-      .then(async() => await sendEmailVerification(user))
-      .then(async() => await updateEmail(user, newEmail))
+  //   return reauthenticateWithCredential(user, credential)
+  //     .then(async() => await sendEmailVerification(user))
+  //     .then(async() => await updateEmail(user, newEmail))
+  //     .then(() => {
+  //       // Show success message
+  //       swal("Email updated successfully", {
+  //         icon: "success",
+  //       });
+  //     })
+  //     .catch((error) => {
+  //       // Show error message
+  //       swal("Oops", error.message, "error");
+  //     });
+  // };
+
+
+  const updateEmailForUser = (currentPassword, newEmail) => {
+    reauthenticate(currentPassword)
       .then(() => {
-        // Show success message
-        swal("Email updated successfully", {
-          icon: "success",
-        });
+        const user = auth.currentUser;
+        return updateEmail(user, newEmail);
+      })
+      .then(() => {
+        swal("Success", "Email updated successfully", "success");
       })
       .catch((error) => {
-        // Show error message
-        swal("Oops", error.message, "error");
+        swal("Error", error.message, "error");
       });
   };
 

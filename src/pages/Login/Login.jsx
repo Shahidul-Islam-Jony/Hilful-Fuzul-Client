@@ -32,8 +32,12 @@ const Login = () => {
                 navigate(location.state || '/');
             })
             .catch(error => {
-                swal("Oops", { error }, "error");
-                return;
+                if(error){
+
+                    // console.log('error = ',error?.message);
+                    swal("Oops", error?.message,"error");
+                    return;
+                }
             })
     }
 
@@ -64,8 +68,12 @@ const Login = () => {
                     })
             })
             .catch(error => {
-                swal("Oops", { error }, "error");
-                return;
+                if(error){
+
+                    // console.log('error = ',error?.message);
+                    swal("Oops", error?.message,"error");
+                    return;
+                }
             })
     }
 
@@ -96,8 +104,12 @@ const Login = () => {
                     })
             })
             .catch(error => {
-                swal("Oops", { error }, "error");
-                return;
+                if(error){
+
+                    // console.log('error = ',error?.message);
+                    swal("Oops", error?.message,"error");
+                    return;
+                }
             })
     }
 
