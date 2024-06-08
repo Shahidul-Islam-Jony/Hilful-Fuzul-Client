@@ -81,7 +81,7 @@ const Navbar = () => {
                     {
                         user ? <div className="flex items-center gap-4">
                             <div className="dropdown dropdown-end">
-                                <div tabIndex={0} role="button" className=""> <img onClick={() => setIsProfileClicked(!isProfileClick)} src={user?.photoURL} title={user?.displayName} className="w-10 h-10 rounded-full border-2 shadow-lg border-blue-800 cursor-pointer" alt={user?.displayName} /></div>
+                                <div tabIndex={0} role="button" className=""> <img onClick={() => setIsProfileClicked(!isProfileClick)} src={userData?.photoUrl} title={user?.displayName} className="w-10 h-10 rounded-full border-2 shadow-lg border-blue-800 cursor-pointer" alt={user?.displayName} /></div>
                                 {
                                     isProfileClick && <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
                                         <Link to='/myProfile' className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><CgProfile /> My Profile</Link>

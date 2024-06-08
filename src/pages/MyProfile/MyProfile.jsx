@@ -2,15 +2,17 @@ import { useContext, useState } from "react";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import useGetSingleUser from "../../hooks/useGetSingleUser";
 import { AuthContext } from "../../providers/AuthProvider";
+import swal from "sweetalert";
 
 const image_hosting_key = import.meta.env.VITE_ImageBB_API;
 const image_hosting_url = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const MyProfile = () => {
-  const { user, updateUser, updatePass,updateEmailForUser } = useContext(AuthContext);
+  const { user, updateUser, updatePass, reauthenticate } =
+    useContext(AuthContext);
   //   console.log(user);
   const [userData] = useGetSingleUser(user?.uid);
-  //   console.log(userData);
+  console.log(userData);
   const axiosPublic = useAxiosPublic();
   const [imageUrl, setImageUrl] = useState("");
 
@@ -49,16 +51,36 @@ const MyProfile = () => {
     document.getElementById("my_modal_3").close();
   };
 
-// update email
-const handleUpdateEmail = async(e)=>{
-  e.preventDefault();
-  const password = e.target.password.value;
-  const email = e.target.email.value;
-  // console.log(password,email);
-  updateEmailForUser(password,email);
-  document.getElementById("my_modal_4").close();
-}
+  // update email
+  const handleUpdateEmail = async (e) => {
+    e.preventDefault();
+    const password = e.target.password.value;
+    const email = e.target.email.value;
 
+    reauthenticate(password).then(() => {
+      const data = {
+        uid: user?.uid,
+        newEmail: email,
+      };
+
+      axiosPublic
+        .post("/update/email", data)
+        .then((res) => {
+          // console.log(res);
+          if (res?.status === 200) {
+            swal("Email updated successfully", "Please logout and login again", "success");
+          }
+        })
+        .catch((error) => {
+          // console.log(error?.response?.status);
+          if (error?.response?.status === 400) {
+            return swal("Oops",error?.response?.data, "error");
+          }
+        });
+    });
+
+    document.getElementById("my_modal_4").close();
+  };
 
   return (
     <div className="flex mt-44 justify-center">
@@ -136,8 +158,8 @@ const handleUpdateEmail = async(e)=>{
               </dialog>
 
               {/* Update Email */}
-               {/* You can open the modal using document.getElementById('ID').showModal() method */}
-               <button
+              {/* You can open the modal using document.getElementById('ID').showModal() method */}
+              <button
                 className="btn btn-sm"
                 onClick={() =>
                   document.getElementById("my_modal_4").showModal()
@@ -154,7 +176,7 @@ const handleUpdateEmail = async(e)=>{
                     </button>
                   </form>
                   <form onSubmit={handleUpdateEmail}>
-                  <input
+                    <input
                       type="email"
                       name="email"
                       placeholder="Type new email"
@@ -172,14 +194,12 @@ const handleUpdateEmail = async(e)=>{
                   </form>
                 </div>
               </dialog>
-
-
             </div>
           </div>
         </div>
         <div className="avatar -top-16 left-28 md:left-44 lg:left-60 absolute z-40">
           <div className="w-36 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-            <img src={user?.photoURL} />
+            <img src={userData?.photoUrl} />
           </div>
         </div>
       </div>

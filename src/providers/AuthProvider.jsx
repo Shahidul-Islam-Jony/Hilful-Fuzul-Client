@@ -13,8 +13,6 @@ import {
   updatePassword,
   EmailAuthProvider,
   reauthenticateWithCredential,
-  updateEmail,
-  sendEmailVerification
 } from "firebase/auth";
 import app from "../firebase/firebase.config";
 import swal from "sweetalert";
@@ -96,7 +94,7 @@ const AuthProvider = ({ children }) => {
   };
 
 
-  // Update Email
+  // Update Email with email verification
   // const updateEmailHandler = (currentPassword, newEmail) => {
   //   reauthenticate(currentPassword).then(() => {
   //     const user = auth.currentUser;
@@ -113,41 +111,6 @@ const AuthProvider = ({ children }) => {
   //   });
   // };
   
-  
-  // const updateEmailForUser = async(currentPassword, newEmail) => {
-  //   const user = auth.currentUser;
-  //   const credential = EmailAuthProvider.credential(user.email, currentPassword);
-  
-  //   return reauthenticateWithCredential(user, credential)
-  //     .then(async() => await sendEmailVerification(user))
-  //     .then(async() => await updateEmail(user, newEmail))
-  //     .then(() => {
-  //       // Show success message
-  //       swal("Email updated successfully", {
-  //         icon: "success",
-  //       });
-  //     })
-  //     .catch((error) => {
-  //       // Show error message
-  //       swal("Oops", error.message, "error");
-  //     });
-  // };
-
-
-  const updateEmailForUser = (currentPassword, newEmail) => {
-    reauthenticate(currentPassword)
-      .then(() => {
-        const user = auth.currentUser;
-        return updateEmail(user, newEmail);
-      })
-      .then(() => {
-        swal("Success", "Email updated successfully", "success");
-      })
-      .catch((error) => {
-        swal("Error", error.message, "error");
-      });
-  };
-
 
 
   // User observer
@@ -172,8 +135,9 @@ const AuthProvider = ({ children }) => {
     loginByGoogle,
     loginByFB,
     updatePass,
+    reauthenticate,
     // updateEmailHandler,
-    updateEmailForUser
+    // updateEmailForUser
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
