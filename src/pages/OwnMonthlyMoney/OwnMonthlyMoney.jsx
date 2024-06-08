@@ -1,10 +1,10 @@
-import { useContext } from "react";
-import { AuthContext } from "../../providers/AuthProvider";
 import useGetTotalMoney from "../../hooks/useGetTotalMoney";
+import { useParams } from "react-router-dom";
 
 const OwnMonthlyMoney = () => {
-  const { user } = useContext(AuthContext);
-  const [Money, isLoading] = useGetTotalMoney(user?.uid);
+  const {uid} = useParams();
+  console.log(uid);
+  const [Money, isLoading] = useGetTotalMoney(uid);
 
   if (isLoading) {
     return (

@@ -51,7 +51,7 @@ const router = createBrowserRouter([
                 element: <PrivateRoute><AddCost></AddCost></PrivateRoute>
             },
             {
-                path:'own/monthly/money',
+                path:'own/monthly/money/:uid',
                 element:<OwnMonthlyMoney></OwnMonthlyMoney>
             }
         ]

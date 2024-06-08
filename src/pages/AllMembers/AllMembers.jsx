@@ -37,7 +37,8 @@ const AllMembers = () => {
 
   const handleOwnMonthlyMoney = (uid) => {
     if (uid === user?.uid || userData?.type === "superAdmin") {
-      navigate("/own/monthly/money");
+      // console.log(uid);
+      navigate(`/own/monthly/money/${uid}`);
     }
   };
 
