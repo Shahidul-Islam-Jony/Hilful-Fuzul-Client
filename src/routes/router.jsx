@@ -11,6 +11,7 @@ import SeeTotalMoney from "../pages/SeeTotalMoney/SeeTotalMoney";
 import AddCost from "../pages/AddCost/AddCost";
 import MyProfile from "../pages/MyProfile/MyProfile";
 import OwnMonthlyMoney from "../pages/OwnMonthlyMoney/OwnMonthlyMoney";
+import AllUsers from "../pages/AllUsers/AllUsers";
 
 const router = createBrowserRouter([
     {
@@ -52,7 +53,11 @@ const router = createBrowserRouter([
             },
             {
                 path:'own/monthly/money/:uid',
-                element:<OwnMonthlyMoney></OwnMonthlyMoney>
+                element:<PrivateRoute><OwnMonthlyMoney></OwnMonthlyMoney></PrivateRoute>
+            },
+            {
+                path:'all/users',
+                element:<PrivateRoute><AllUsers></AllUsers></PrivateRoute>
             }
         ]
     }
