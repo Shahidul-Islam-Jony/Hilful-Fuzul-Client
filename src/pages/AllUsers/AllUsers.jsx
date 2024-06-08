@@ -5,7 +5,6 @@ import swal from "sweetalert";
 
 const AllUsers = () => {
 
-
   const [users, setUsers] = useState(null);
   const axiosPublic = useAxiosPublic();
 
@@ -122,22 +121,27 @@ const AllUsers = () => {
 
   // handle delete user
   const handleDeleteUser = (uid) => {
+    // console.log(uid);
     swal({
-      title: "Are you sure?",
-      text: "You want to change user as Admin",
-      icon: "warning",
-      buttons: true,
-      dangerMode: true,
-    }).then((admin) => {
-      if (admin) {
-        console.log(uid);
-        swal("User is now an Admin", {
-          icon: "success",
-        });
-      } else {
-        swal("Operation cancel !");
-      }
-    });
+        title: "Are you sure?",
+        text: "You want to delete this User",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      }).then((admin) => {
+        if (admin) {
+          axiosPublic.delete(`delete/user/${uid}`).then((res) => {
+            // console.log(res);
+            if (res?.status === 200) {
+              swal("User deleted successful", {
+                icon: "success",
+              });
+            }
+          });
+        } else {
+          swal("Operation cancel !");
+        }
+      });
   };
 
   return (
