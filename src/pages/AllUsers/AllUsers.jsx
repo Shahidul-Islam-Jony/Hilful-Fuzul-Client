@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { IoSearch } from "react-icons/io5";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import swal from "sweetalert";
 
 const AllUsers = () => {
+
+
   const [users, setUsers] = useState(null);
-  // console.log(usersData);
   const axiosPublic = useAxiosPublic();
 
   // for search member
@@ -40,22 +42,103 @@ const AllUsers = () => {
 
   // load user based on page
   useEffect(() => {
-    if(searchQuery){      // load users based on search query
-      axiosPublic.get(`/search/users?search=${searchQuery}`)
-      .then(res=>{
+    if (searchQuery) {
+      // load users based on search query
+      axiosPublic.get(`/search/users?search=${searchQuery}`).then((res) => {
         // console.log(res?.data);
         setUsers(res?.data);
-      })
-    }
-    else{       //load users based on current page
-      axiosPublic.get(`/all/users?page=${currentPage}&size=${itemsPerPage}`)
-      .then((res) => {
-        console.log(res?.data);
-        setUsers(res?.data);
       });
+    } else {
+      //load users based on current page
+      axiosPublic
+        .get(`/all/users?page=${currentPage}&size=${itemsPerPage}`)
+        .then((res) => {
+        //   console.log(res?.data);
+          setUsers(res?.data);
+        });
     }
-  }, [axiosPublic, currentPage, itemsPerPage,searchQuery]);
+  }, [axiosPublic, currentPage, itemsPerPage, searchQuery]);
 
+  //   pagination ends
+
+  //   handle make admin
+  const handleMakeAdmin = (uid) => {
+    swal({
+      title: "Are you sure?",
+      text: "You want to change user as Admin",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((admin) => {
+      if (admin) {
+        // console.log(uid);
+        const updateType = {
+          type: "admin",
+          uid,
+        };
+
+        axiosPublic.patch("/update/user/type", updateType).then((res) => {
+          // console.log(res);
+          if (res?.status === 200) {
+            swal("User is now an Admin", {
+              icon: "success",
+            }).then(() => {});
+          }
+        });
+      } else {
+        swal("Operation cancel !");
+      }
+    });
+  };
+
+  //  handle make user
+  const handleMakeUser = (uid) => {
+    swal({
+      title: "Are you sure?",
+      text: "You want to change Admin as User",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((admin) => {
+      if (admin) {
+        // console.log(uid);
+        const updateType = {
+          type: "user",
+          uid,
+        };
+        axiosPublic.patch("/update/user/type", updateType).then((res) => {
+          // console.log(res);
+          if (res?.status === 200) {
+            swal("Admin is now a user", {
+              icon: "success",
+            });
+          }
+        });
+      } else {
+        swal("Operation cancel !");
+      }
+    });
+  };
+
+  // handle delete user
+  const handleDeleteUser = (uid) => {
+    swal({
+      title: "Are you sure?",
+      text: "You want to change user as Admin",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((admin) => {
+      if (admin) {
+        console.log(uid);
+        swal("User is now an Admin", {
+          icon: "success",
+        });
+      } else {
+        swal("Operation cancel !");
+      }
+    });
+  };
 
   return (
     <div className="my-28 w-11/12 mx-auto">
@@ -83,14 +166,15 @@ const AllUsers = () => {
           <thead className="text-lg">
             <tr>
               <th className="font-bold text-black">Photo</th>
-              <th className="font-bold text-black">Email</th>
+              <th className="font-bold text-black">Email / Type</th>
               <th className="font-bold text-black">Address</th>
               <th className="font-bold text-black">Phone</th>
+              <th className="font-bold text-black">Action</th>
             </tr>
           </thead>
           <tbody>
             {users?.map((user) => (
-              <tr className="cursor-pointer" key={user?._id}>
+              <tr className="" key={user?._id}>
                 <td>
                   <div className="flex items-center gap-3">
                     <div className="avatar">
@@ -105,20 +189,53 @@ const AllUsers = () => {
                   </div>
                 </td>
                 <td>
-                  {user?.email}
+                  {user?.email} <br />
+                  <span className="font-bold">Type :</span> {user?.type}
                 </td>
                 <td>
                   <div>Divission : {user?.divission}</div>
                   <div>Village : {user?.village}</div>
                 </td>
+                <td>{user?.phone}</td>
                 <td>
-                  {user?.phone}
+                  {user?.type === "admin" ? (
+                    <div className="flex flex-col">
+                      <button
+                        onClick={() => handleMakeUser(user?.uid)}
+                        className="btn btn-sm btn-outline hover:bg-green-800 mb-1"
+                      >
+                        Make User
+                      </button>
+                      <button
+                        onClick={() => handleDeleteUser(user?.uid)}
+                        className="btn btn-sm btn-outline hover:bg-red-700"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col">
+                      <button
+                        onClick={() => handleMakeAdmin(user?.uid)}
+                        className="btn btn-sm btn-outline hover:bg-green-800 mb-1"
+                      >
+                        Make Admin
+                      </button>
+                      <button
+                        onClick={() => handleDeleteUser(user?.uid)}
+                        className="btn btn-sm btn-outline hover:bg-red-700"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  )}
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+
       {/* Pagination */}
 
       <div className="text-center mt-10">
