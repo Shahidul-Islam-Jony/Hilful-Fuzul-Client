@@ -20,6 +20,7 @@ const AllMembers = () => {
 
   // Pagination starts here
   const [count, setCount] = useState(0);
+  // console.log(count);
   const [itemsPerPage, setItemPerPage] = useState(10);
   const totalPages = Math.ceil(count / itemsPerPage); //total num of pages
   //   console.log(totalPages);
@@ -74,7 +75,7 @@ const AllMembers = () => {
   return (
     <div className="my-28 w-11/12 mx-auto">
       <h2 className="text-center text-xl md:text-3xl font-bold my-6">
-        Our All Members
+        Our All Members <br />Total : {count}
       </h2>
 
       <div className="mb-4 flex items-center gap-4 relative">
