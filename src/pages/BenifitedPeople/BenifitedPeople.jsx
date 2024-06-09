@@ -25,6 +25,8 @@ const BenifitedPeople = () => {
         (item) => item.date.split("-")[1] === currentMonth
     ); // Filter data for current month
 
+    const totalMoneyForCurrentMonth = dataForCurrentMonth.reduce((total, item) => total + item.money, 0);
+
     return (
         <div className="mt-28 w-11/12 mx-auto">
             <div className="container mx-auto p-4">
@@ -49,6 +51,10 @@ const BenifitedPeople = () => {
                                         <td className="text-base text-black font-medium">{item.money}</td>
                                     </tr>
                                 ))}
+                                <tr>
+                                    <td colSpan="3" className="text-right font-bold">Total:</td>
+                                    <td className="text-base text-black font-bold">{totalMoneyForCurrentMonth}</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
