@@ -1,5 +1,6 @@
 import { useState } from "react";
 import useGetBenifitedPeople from "../../hooks/useGetBenifitedPeople";
+import { Audio } from "react-loader-spinner";
 
 const BenifitedPeople = () => {
     const [benifitedPeoplesData, isLoading] = useGetBenifitedPeople();
@@ -13,25 +14,37 @@ const BenifitedPeople = () => {
     };
 
     if (isLoading) {
-        return <div>Loading...</div>; // Placeholder for loading state
+        return <div className="flex justify-center mt-32">
+            <Audio
+                height="100"
+                width="100"
+                color="#4fa94d"
+                ariaLabel="audio-loading"
+                wrapperStyle={{}}
+                wrapperClass="wrapper-class"
+                visible={true}
+            />
+        </div>
     }
 
     // Get unique months in descending order
-    const months = [...new Set(benifitedPeoplesData.map(item => item.date.split("-")[1]))].sort();
+    const months = [...new Set(benifitedPeoplesData.map(item => `${item.date.split("-")[0]}-${item.date.split("-")[1]}`))].sort();
 
-    const currentMonth = months[currentMonthIndex]; // Get current month name
+    const currentMonth = months[currentMonthIndex]; // Get current month and year
 
     const dataForCurrentMonth = benifitedPeoplesData.filter(
-        (item) => item.date.split("-")[1] === currentMonth
+        (item) => `${item.date.split("-")[0]}-${item.date.split("-")[1]}` === currentMonth
     ); // Filter data for current month
 
     const totalMoneyForCurrentMonth = dataForCurrentMonth.reduce((total, item) => total + item.money, 0);
 
+    const [year, month] = currentMonth.split("-");
+
     return (
         <div className="mt-28 w-11/12 mx-auto">
-            <div className="container mx-auto p-4">
+            <div className="container mx-auto md:p-4">
                 <h1 className="text-2xl font-bold text-center">Monthly Money Data</h1>
-                <div className="mt-4 border-2 border-blue-500 rounded-lg w-96 mx-auto text-center">
+                <div className="mt-4 border-2 border-blue-500 rounded-lg mx-auto text-center">
                     <div className="overflow-x-auto">
                         <table className="table">
                             <thead>
@@ -69,7 +82,7 @@ const BenifitedPeople = () => {
                     >
                         Previous Month
                     </button>
-                    <span>{new Date(2000, parseInt(currentMonth) - 1, 1).toLocaleString('default', { month: 'long' })}</span>
+                    <span>{`${new Date(year, parseInt(month) - 1, 1).toLocaleString('default', { month: 'long' })} ${year}`}</span>
                     <button
                         className={`px-3 py-1  border-2 border-black rounded-lg ${
                             currentMonthIndex === months.length - 1
