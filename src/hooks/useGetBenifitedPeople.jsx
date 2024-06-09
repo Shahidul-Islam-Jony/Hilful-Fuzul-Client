@@ -1,13 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "./useAxiosPublic"
 
-const useGetAllUsers = () => {
+const useGetBinifitedPeople = () => {
     const axiosPublic = useAxiosPublic();
 
     const { data: benifitedPeoplesData = {}, isLoading, refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
-            const res = await axiosPublic.get(`/benifited/people`)
+            const res = await axiosPublic.get('/benifited/people')
             return res.data;
         }
     })
@@ -15,4 +15,4 @@ const useGetAllUsers = () => {
     return [benifitedPeoplesData, isLoading, refetch];
 }
 
-export default useGetAllUsers;
+export default useGetBinifitedPeople;
