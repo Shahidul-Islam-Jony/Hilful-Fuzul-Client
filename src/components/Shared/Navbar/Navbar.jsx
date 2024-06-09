@@ -13,6 +13,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../../providers/AuthProvider";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import useGetSingleUser from "../../../hooks/useGetSingleUser";
+import logo from "../../../assets/images/Hilfulfuzul.png";
 
 const Navbar = () => {
     const { user, logout } = useContext(AuthContext);
@@ -56,7 +57,7 @@ const Navbar = () => {
                         }
                     </div>
                     <Link to='/' className="flex items-center justify-center">
-                        <img src='Hilfulfuzul.png' className="w-16 h-14" alt="" />
+                        <img src={logo} className="w-16 h-14" alt="" />
                         <h2 className="text-lg md:text-2xl">Hilful Fuzul</h2>
                     </Link>
                 </div>
