@@ -64,7 +64,7 @@ const AllUsers = () => {
   const handleMakeAdmin = (uid) => {
     swal({
       title: "Are you sure?",
-      text: "You want to change user as Admin",
+      text: "You want to change Member as Admin",
       icon: "warning",
       buttons: true,
       dangerMode: true,
@@ -79,7 +79,7 @@ const AllUsers = () => {
         axiosPublic.patch("/update/user/type", updateType).then((res) => {
           // console.log(res);
           if (res?.status === 200) {
-            swal("User is now an Admin", {
+            swal("Member is now an Admin", {
               icon: "success",
             }).then(() => {});
           }
@@ -91,10 +91,10 @@ const AllUsers = () => {
   };
 
   //  handle make user
-  const handleMakeUser = (uid) => {
+  const handleMakeMember = (uid) => {
     swal({
       title: "Are you sure?",
-      text: "You want to change Admin as User",
+      text: "You want to change Admin as Member",
       icon: "warning",
       buttons: true,
       dangerMode: true,
@@ -102,13 +102,13 @@ const AllUsers = () => {
       if (admin) {
         // console.log(uid);
         const updateType = {
-          type: "user",
+          type: "member",
           uid,
         };
         axiosPublic.patch("/update/user/type", updateType).then((res) => {
           // console.log(res);
           if (res?.status === 200) {
-            swal("Admin is now a user", {
+            swal("Admin is now a Member", {
               icon: "success",
             });
           }
@@ -205,10 +205,10 @@ const AllUsers = () => {
                   {user?.type === "admin" ? (
                     <div className="flex flex-col">
                       <button
-                        onClick={() => handleMakeUser(user?.uid)}
+                        onClick={() => handleMakeMember(user?.uid)}
                         className="btn btn-sm btn-outline hover:bg-green-800 mb-1"
                       >
-                        Make User
+                        Make Member
                       </button>
                       <button
                         onClick={() => handleDeleteUser(user?.uid)}
