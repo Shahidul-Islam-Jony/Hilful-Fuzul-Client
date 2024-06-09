@@ -102,7 +102,7 @@ const Navbar = () => {
                                         }
                                         {
                                             userData.type === 'superAdmin' && <div>
-                                                <Link onClick={() => setIsProfileClicked(false)} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><LiaPeopleCarrySolid /> Benifited People</Link>
+                                                <Link to="/benifited/people" onClick={() => setIsProfileClicked(false)} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><LiaPeopleCarrySolid /> Benifited People</Link>
                                             </div>
                                         }
                                         {

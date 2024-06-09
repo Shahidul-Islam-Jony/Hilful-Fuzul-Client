@@ -1,4 +1,5 @@
 import './FooterStyle.css'
+import logo from "../../../assets/images/Hilfulfuzul.png";
 
 const Footer = () => {
     
@@ -16,7 +17,7 @@ const Footer = () => {
                 {/* waves end */}
 
                 <div className='w-full lg:pl-24'>
-                    <img src='Hilfulfuzul.png' className='w-20 h-20 rounded-full' alt="Lifecare logo" />
+                    <img src={logo} className='w-20 h-20 rounded-full' alt="Lifecare logo" />
                     <p>Hilful Fuzul<br />Re-established March 24, 2024</p>
                 </div>
                 <div className='flex flex-col w-full'>
