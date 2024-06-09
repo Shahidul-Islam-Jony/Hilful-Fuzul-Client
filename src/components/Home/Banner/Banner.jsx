@@ -64,7 +64,7 @@ const Banner = () => {
       </div>
 
       {/* Type Writter */}
-      <div className="absolute z-50 top-1/3 md:top-1/2 md:left-28 lg:left-1/3">
+      <div className="absolute z-30 top-1/3 md:top-1/2 md:left-28 lg:left-1/3">
         <p className="text-white text-center bg-black bg-opacity-50 p-1 rounded-sm text-xl font-medium">
           <Typewriter
             words={[

@@ -44,7 +44,7 @@ const Navbar = () => {
                             isOpen ? <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[50] p-2 shadow bg-base-100 rounded-box w-52">
                                 <NavLink to='/' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><IoHomeOutline /> Home</NavLink>
                                 <NavLink to='/contact' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><IoIosContact /> Contact Us</NavLink>
-                                <NavLink to='/about' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><BsPeopleFill /> About Us</NavLink>
+                                <NavLink to='/about' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><BsPeopleFill /> About HilFul Fuzul</NavLink>
                                 {
                                     userData && <div>
                                         <NavLink to='/allMembers' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><FaPeopleGroup /> All Members</NavLink>
@@ -66,7 +66,7 @@ const Navbar = () => {
                     <ul className="menu menu-horizontal px-1 gap-2">
                         <NavLink to='/' className="text-base hover:bg-green-800 hover:text-white rounded-md py-1 px-2 flex items-center gap-1"><IoHomeOutline /> Home</NavLink>
                         <NavLink to='/contact' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><IoIosContact /> Contact Us</NavLink>
-                        <NavLink to='/about' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><BsPeopleFill /> About Us</NavLink>
+                        <NavLink to='/about' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><BsPeopleFill /> About Hilful Fuzul</NavLink>
                         {
                             userData && <div className="flex">
                                 <NavLink to='/allMembers' className="text-base hover:bg-green-800 hover:text-white rounded-md p-2 flex items-center gap-1"><FaPeopleGroup /> All Members</NavLink>

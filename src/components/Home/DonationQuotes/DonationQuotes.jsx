@@ -11,7 +11,7 @@ const DonationQuotes = () => {
                     <img className='rounded-lg' src={islamicFoodReserve} alt="" />
                 </div>
                 <div>
-                    <p className='text-xl mb-8 font-medium md:w-[700px] text-center border-2 border-blue-600 rounded-lg p-4'>যখন কোনো ব্যক্তি মৃতু্যবরণ করে, তার সব আমল বন্ধ হয়ে যায়, তিনটি ব্যতীত, সদকায়ে জারিয়া, উপকারী জ্ঞান অথবা সত্কর্মশীল সন্তান যে তার জন্য দোয়া করে। ' (সহিহ মুসলিম শরিফ, হাদিস নম্বর-১৬৩১)</p>
+                    <p className='text-xl mb-8 font-medium md:w-[700px] text-center border-2 border-blue-600 rounded-lg p-4'>যখন কোনো ব্যক্তি মৃত্যুবরণ করে, তার সব আমল বন্ধ হয়ে যায়, তিনটি ব্যতীত, সদকায়ে জারিয়া, উপকারী জ্ঞান অথবা সত্কর্মশীল সন্তান যে তার জন্য দোয়া করে। ' (সহিহ মুসলিম শরিফ, হাদিস নম্বর-১৬৩১)</p>
                 </div>
             </div>
             <div className='flex flex-col lg:flex-row-reverse gap-8 justify-between items-center'>
