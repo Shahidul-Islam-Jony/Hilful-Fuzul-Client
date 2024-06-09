@@ -8,22 +8,28 @@ const image_hosting_key = import.meta.env.VITE_ImageBB_API;
 const image_hosting_url = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const MyProfile = () => {
-  const { user, updateUser, updatePass, reauthenticate } =
-    useContext(AuthContext);
+  const { user, updateUser, updatePass, reauthenticate,logout } = useContext(AuthContext);
   //   console.log(user);
-  const [userData] = useGetSingleUser(user?.uid);
+  const [userData, refetch] = useGetSingleUser(user?.uid);
   console.log(userData);
   const axiosPublic = useAxiosPublic();
   const [imageUrl, setImageUrl] = useState("");
 
-  const handleUpdateImage = async () => {
-    updateUser(user?.displayName, imageUrl)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const handleUpdateImage = async (uid) => {
+    console.log(uid,imageUrl);
+    updateUser(user?.displayName, imageUrl);
+    const updateType = {
+      imageUrl,
+      uid,
+    };
+
+    axiosPublic.patch("/update/user/type", updateType).then((res) => {
+      console.log(res);
+      if (res?.status === 200) {
+        swal("Image updated successfully", "Please reload", "success");
+        refetch();
+      }
+    });
   };
 
   const handleUploadImageBB = async (e) => {
@@ -68,13 +74,17 @@ const MyProfile = () => {
         .then((res) => {
           // console.log(res);
           if (res?.status === 200) {
-            swal("Email updated successfully", "Please logout and login again", "success");
+            swal(
+              "Email updated successfully",
+              "Please logout and login again",
+              "success"
+            );
           }
         })
         .catch((error) => {
           // console.log(error?.response?.status);
           if (error?.response?.status === 400) {
-            return swal("Oops",error?.response?.data, "error");
+            return swal("Oops", error?.response?.data, "error");
           }
         });
     });
@@ -98,25 +108,43 @@ const MyProfile = () => {
             <p className="font-medium">Phone Number: {userData?.phone}</p>
             <p className="font-medium">Type : {userData?.type}</p>
             <div className="grid grid-cols-2 justify-between gap-1 mt-10">
-              {/* <button
+              <button
                 onClick={() => logout()}
                 className="btn btn-sm bg-warning"
               >
                 Sign Out
-              </button> */}
-              <input
-                className="lg:ml-20"
-                type="file"
-                onChange={handleUploadImageBB}
-                name="image"
-                id=""
-              />
+              </button>
+              {/* update picture modal */}
               <button
-                onClick={handleUpdateImage}
+                // onClick={()=>handleUpdateImage(userData?.uid)}
+                onClick={() =>
+                  document.getElementById("my_modal_5").showModal()
+                }
                 className="btn btn-sm btn-accent"
               >
                 Update Picture
               </button>
+              <dialog id="my_modal_5" className="modal text-black">
+                <div className="modal-box">
+                  <form method="dialog">
+                    {/* if there is a button in form, it will close the modal */}
+                    <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                      ✕
+                    </button>
+                  </form>
+                  <form onSubmit={()=>handleUpdateImage(userData?.uid)}>
+                    <input
+                      className="lg:ml-20"
+                      type="file"
+                      onChange={handleUploadImageBB}
+                      name="image"
+                      id=""
+                    />
+                    <br />
+                    <input type="submit" className="btn mt-5" value="Update Picture" />
+                  </form>
+                </div>
+              </dialog>
 
               {/* modal for update pass */}
 
