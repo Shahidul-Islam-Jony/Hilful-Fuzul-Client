@@ -9,28 +9,11 @@ const image_hosting_url = `https://api.imgbb.com/1/upload?key=${image_hosting_ke
 
 const MyProfile = () => {
   const { user, updateUser, updatePass, reauthenticate,logout } = useContext(AuthContext);
-  //   console.log(user);
+    // console.log(user);
   const [userData, refetch] = useGetSingleUser(user?.uid);
-  console.log(userData);
+  // console.log(userData);
   const axiosPublic = useAxiosPublic();
   const [imageUrl, setImageUrl] = useState("");
-
-  const handleUpdateImage = async (uid) => {
-    console.log(uid,imageUrl);
-    updateUser(user?.displayName, imageUrl);
-    const updateType = {
-      imageUrl,
-      uid,
-    };
-
-    axiosPublic.patch("/update/user/type", updateType).then((res) => {
-      console.log(res);
-      if (res?.status === 200) {
-        swal("Image updated successfully", "Please reload", "success");
-        refetch();
-      }
-    });
-  };
 
   const handleUploadImageBB = async (e) => {
     const image = e.target.files[0];
@@ -46,6 +29,25 @@ const MyProfile = () => {
     setImageUrl(res.data.data.display_url);
   };
   // console.log(imageUrl);
+
+  const handleUpdateImage = async (uid) => {
+    console.log(uid,imageUrl);
+    await updateUser(user?.displayName, imageUrl);
+    const updateType = {
+      imageUrl,
+      uid,
+    };
+
+    axiosPublic.patch("/update/user/type", updateType).then((res) => {
+      console.log(res);
+      if (res?.status === 200) {
+        swal("Image updated successfully", "Please reload", "success");
+        refetch();
+      }
+    });
+  };
+
+
 
   // update password
   const handleUpdatePass = async (e) => {
