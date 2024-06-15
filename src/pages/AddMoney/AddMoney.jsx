@@ -85,7 +85,7 @@ const AddMoney = () => {
     const handleSubmitMoney = async (e) => {
         e.preventDefault();
         const form = e.target;
-        const money = form.money.value;
+        const money = parseFloat(form.money.value);
         const date = form.date.value;
         const dateIso = `${date}T00:00:00.000Z`;  //convert date into isoString format; 
         // console.log(dateIso);
@@ -158,7 +158,7 @@ const AddMoney = () => {
                         <label className="label">
                             <span className="text-xl font-medium">Amount of money</span>
                         </label>
-                        <input type="number" name='money' min="1" onWheel={handleWheel} placeholder="Amount of Money" className="input rounded-md w-full border-blue-600 focus:outline-none focus:ring" required />
+                        <input type="number" name='money' min="1" step="0.01" onWheel={handleWheel} placeholder="Amount of Money" className="input rounded-md w-full border-blue-600 focus:outline-none focus:ring" required />
                     </div>
                     <div className="form-control mt-6">
                         <input className='btn btn-outline border-blue-600 hover:bg-green-800 capitalize text-xl font-semibold' type="submit" value="Add Money" />

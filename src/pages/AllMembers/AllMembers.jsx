@@ -87,7 +87,7 @@ const AllMembers = () => {
           onChange={(e) => setSearchQuery(e.target.value)}
           className="border-2 border-gray-500 w-80 md:w-[420px] rounded-md p-2"
         />
-        <span className="absolute right-5 md:left-1/3">
+        <span className="absolute right-5 md:left-[67%] lg:left-[38%]">
           <IoSearch className="text-gray-400" />
         </span>
       </div>
