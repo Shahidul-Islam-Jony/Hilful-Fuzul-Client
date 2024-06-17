@@ -8,8 +8,9 @@ const image_hosting_key = import.meta.env.VITE_ImageBB_API;
 const image_hosting_url = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const MyProfile = () => {
-  const { user, updateUser, updatePass, reauthenticate,logout } = useContext(AuthContext);
-    // console.log(user);
+  const { user, updateUser, updatePass, reauthenticate, logout } =
+    useContext(AuthContext);
+  // console.log(user);
   const [userData, refetch] = useGetSingleUser(user?.uid);
   // console.log(userData);
   const axiosPublic = useAxiosPublic();
@@ -31,8 +32,6 @@ const MyProfile = () => {
   // console.log(imageUrl);
 
   const handleUpdateImage = async (uid) => {
-    console.log(uid,imageUrl);
-    await updateUser(user?.displayName, imageUrl);
     const updateType = {
       imageUrl,
       uid,
@@ -40,14 +39,17 @@ const MyProfile = () => {
 
     axiosPublic.patch("/update/user/type", updateType).then((res) => {
       console.log(res);
+      console.log("Hello");
       if (res?.status === 200) {
         swal("Image updated successfully", "Please reload", "success");
         refetch();
       }
     });
+
+    // Firebase update photo
+    // console.log(uid, imageUrl);
+    await updateUser(user?.displayName, imageUrl);
   };
-
-
 
   // update password
   const handleUpdatePass = async (e) => {
@@ -134,7 +136,7 @@ const MyProfile = () => {
                       ✕
                     </button>
                   </form>
-                  <form onSubmit={()=>handleUpdateImage(userData?.uid)}>
+                  <form onSubmit={() => handleUpdateImage(userData?.uid)}>
                     <input
                       className="lg:ml-20"
                       type="file"
@@ -143,7 +145,11 @@ const MyProfile = () => {
                       id=""
                     />
                     <br />
-                    <input type="submit" className="btn mt-5" value="Update Picture" />
+                    <input
+                      type="submit"
+                      className="btn mt-5"
+                      value="Update Picture"
+                    />
                   </form>
                 </div>
               </dialog>
