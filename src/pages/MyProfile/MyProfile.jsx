@@ -11,44 +11,53 @@ const MyProfile = () => {
   const { user, updateUser, updatePass, reauthenticate, logout } =
     useContext(AuthContext);
   // console.log(user);
-  const [userData, refetch] = useGetSingleUser(user?.uid);
+  const [userData] = useGetSingleUser(user?.uid);
   // console.log(userData);
   const axiosPublic = useAxiosPublic();
   const [imageUrl, setImageUrl] = useState("");
 
+  // upload image into imagebb
   const handleUploadImageBB = async (e) => {
+    e.preventDefault();
     const image = e.target.files[0];
-    // console.log(image);
-    const imageFile = { image: image };
-    // console.log(imageFile);
-    const res = await axiosPublic.post(image_hosting_url, imageFile, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
-    // console.log('Image url', res.data.data.display_url);
-    setImageUrl(res.data.data.display_url);
-  };
-  // console.log(imageUrl);
+    const formData = new FormData();
+    formData.append("image", image);
 
-  const handleUpdateImage = async (uid) => {
+    try {
+      const res = await axiosPublic.post(image_hosting_url, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      setImageUrl(res.data.data.display_url);
+    } catch (error) {
+      console.error("Image upload failed:", error);
+      swal("Failed to upload image", error.message, "error");
+    }
+  };
+
+  console.log(imageUrl);
+
+  const handleUpdateImage = async (e,uid) => {
+    e.preventDefault();
     const updateType = {
       imageUrl,
       uid,
     };
 
-    axiosPublic.patch("/update/user/type", updateType).then((res) => {
+    try {
+      const res = await axiosPublic.patch("/update/user/type", updateType);
       console.log(res);
-      console.log("Hello");
       if (res?.status === 200) {
         swal("Image updated successfully", "Please reload", "success");
-        refetch();
+        // Update the user object with the new image URL
+        await updateUser(user?.displayName, imageUrl);
+        document.getElementById("my_modal_5").close();
       }
-    });
-
-    // Firebase update photo
-    // console.log(uid, imageUrl);
-    await updateUser(user?.displayName, imageUrl);
+    } catch (error) {
+      console.error("Failed to update image:", error);
+      swal("Failed to update image", error.message, "error");
+    }
   };
 
   // update password
@@ -136,14 +145,18 @@ const MyProfile = () => {
                       ✕
                     </button>
                   </form>
-                  <form onSubmit={() => handleUpdateImage(userData?.uid)}>
+                  <form onSubmit={(e) => handleUpdateImage(e,userData?.uid)}>
                     <input
                       className="lg:ml-20"
                       type="file"
-                      onChange={handleUploadImageBB}
+                      onChange={(e) => {
+                        console.log("File selected:", e.target.files[0]);
+                        handleUploadImageBB(e);
+                      }}
                       name="image"
                       id=""
                     />
+
                     <br />
                     <input
                       type="submit"
