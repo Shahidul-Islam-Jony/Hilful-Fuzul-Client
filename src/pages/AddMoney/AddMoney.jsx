@@ -1,86 +1,96 @@
 /* eslint-disable react/no-unescaped-entities */
-import { useState } from "react";
+// import { useState } from "react";
 import { useParams } from "react-router-dom";
 import useGetSingleUser from "../../hooks/useGetSingleUser";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import swal from "sweetalert";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const AddMoney = () => {
     const { uid } = useParams();
     const [userData] = useGetSingleUser(uid);
+    // console.log(userData?.uid);
     const axiosPublic = useAxiosPublic();
 
+    const {user} = useContext(AuthContext);
+    // console.log(user?.uid);
+
+    // auto update starts here
     // Function to automatically update user data if the next month has arrived and user hasn't updated their money
-    const autoUpdateUserData = async () => {
-        try {
-            const currentDate = new Date();
-            // console.log(currentDate);
-            const nextMonth = new Date(currentDate);
-            nextMonth.setMonth(nextMonth.getMonth() + 1);
-            nextMonth.setDate(1);
-            nextMonth.setHours(0, 0, 0, 0);
+   
+    // const autoUpdateUserData = async () => {
+    //     try {
+    //         const currentDate = new Date();
+    //         // console.log(currentDate);
+    //         const nextMonth = new Date(currentDate);
+    //         nextMonth.setMonth(nextMonth.getMonth() + 1);
+    //         nextMonth.setDate(1);
+    //         nextMonth.setHours(0, 0, 0, 0);
 
-            // Check if the next month has arrived
-            if (currentDate.getTime() >= nextMonth.getTime()) {
-                // Check if user hasn't updated their money for the current month
-                const lastUpdatedDate = new Date(userData?.lastUpdatedDate);
-                if (lastUpdatedDate.getMonth() !== currentDate.getMonth()) {
-                    // If the user hasn't updated their money for the current month, update it
-                    await updateUserData();
-                }
-            }
-        } catch (error) {
-            console.error('Error auto-updating user data:', error);
-        }
-    };
+    //         // Check if the next month has arrived
+    //         if (currentDate.getTime() >= nextMonth.getTime()) {
+    //             // Check if user hasn't updated their money for the current month
+    //             const lastUpdatedDate = new Date(userData?.lastUpdatedDate);
+    //             if (lastUpdatedDate.getMonth() !== currentDate.getMonth()) {
+    //                 // If the user hasn't updated their money for the current month, update it
+    //                 await updateUserData();
+    //             }
+    //         }
+    //     } catch (error) {
+    //         console.error('Error auto-updating user data:', error);
+    //     }
+    // };
 
-    // Function to update user data by calling the backend API
-    const updateUserData = async () => {
-        try {
-            await sendUserData(); // Call the function to send user data
-        } catch (error) {
-            console.error('Error updating user data:', error);
-        }
-    };
+    // // Function to update user data by calling the backend API
+    // const updateUserData = async () => {
+    //     try {
+    //         await sendUserData(); // Call the function to send user data
+    //     } catch (error) {
+    //         console.error('Error updating user data:', error);
+    //     }
+    // };
 
-    // Function to fetch user data from the backend API
-    const sendUserData = async () => {
-        try {
-            // Construct the user data object to be sent to the backend
-            const userInfo = {
-                uid: userData?.uid,
-                name: userData?.name,
-                father: userData?.father,
-                email: userData?.email,
-                divission: userData?.divission,
-                phone: userData?.phone,
-                village: userData?.village,
-                photoUrl: userData?.photoUrl,
-                type: userData?.type,
-                money: 0, // Set money to 0 as the user hasn't updated for the current month
-                date: new Date().toISOString(), // Set the current date
-                lastUpdatedDate: new Date().toISOString(), // Set the last updated date to the current date
-            };
+    // // Function to fetch user data from the backend API
+    // const sendUserData = async () => {
+    //     try {
+    //         // Construct the user data object to be sent to the backend
+    //         const userInfo = {
+    //             uid: userData?.uid,
+    //             name: userData?.name,
+    //             father: userData?.father,
+    //             email: userData?.email,
+    //             divission: userData?.divission,
+    //             phone: userData?.phone,
+    //             village: userData?.village,
+    //             photoUrl: userData?.photoUrl,
+    //             type: userData?.type,
+    //             money: 0, // Set money to 0 as the user hasn't updated for the current month
+    //             date: new Date().toISOString(), // Set the current date
+    //             lastUpdatedDate: new Date().toISOString(), // Set the last updated date to the current date
+    //         };
 
-            // Send the user data to the backend
-            await axiosPublic.post('/add/money', userInfo)
-                .then(res => {
-                    if (res.status === 200 || res.status === 201) {
-                        swal("Money added", "success");
-                    }
-                })
-                .then(error => {
-                    swal("Oops", { error }, "error");
-                })
-        } catch (error) {
-            console.error('Error sending user data:', error);
-        }
-    };
+    //         // Send the user data to the backend
+    //         await axiosPublic.post('/add/money', userInfo)
+    //             .then(res => {
+    //                 if (res.status === 200 || res.status === 201) {
+    //                     swal("Money added", "success");
+    //                 }
+    //             })
+    //             .then(error => {
+    //                 swal("Oops", { error }, "error");
+    //             })
+    //     } catch (error) {
+    //         console.error('Error sending user data:', error);
+    //     }
+    // };
 
-    // Call autoUpdateUserData when the component mounts
-    useState(() => {
-        autoUpdateUserData();
-    }, []);
+    // // Call autoUpdateUserData when the component mounts
+    // useState(() => {
+    //     autoUpdateUserData();
+    // }, []);
+
+    // auto update money ends here
 
     const handleSubmitMoney = async (e) => {
         e.preventDefault();
@@ -107,14 +117,24 @@ const AddMoney = () => {
             lastUpdatedDate: dateIso, // Set the last updated date to the current date
         };
 
+        // update admin cash
+        const cash = {
+            uid: user?.uid,
+            amount: money,
+        }
+
         // Send the user data to the backend
         try {
             await axiosPublic.post('/add/money', userInfo)
-                .then(res => {
+                .then(async(res) => {
                     console.log(res);
                     if (res.status === 200 || res.status === 201) {
-                        swal("Money added", "success");
-                        form.reset();
+                        await axiosPublic.post('/add/cash',cash).then(res=>{
+                            if (res.status === 200 || res.status === 201){
+                                swal("Money added", "success");
+                                form.reset();
+                            }
+                        })
                     }
                 })
                 .then(error => {

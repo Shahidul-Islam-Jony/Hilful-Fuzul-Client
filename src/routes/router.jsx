@@ -15,6 +15,7 @@ import AllUsers from "../pages/AllUsers/AllUsers";
 import AboutHilfulFuzul from "../pages/AboutHilfulFuzul/AboutHilfulFuzul";
 import ContactUs from "../pages/ContactUs/ContactUs";
 import BenifitedPeople from "../pages/BenifitedPeople/BenifitedPeople";
+import Cash from "../pages/Cash/Cash";
 
 const router = createBrowserRouter([
     {
@@ -73,6 +74,10 @@ const router = createBrowserRouter([
             {
                 path:'benifited/people',
                 element:<BenifitedPeople></BenifitedPeople>
+            },
+            {
+                path:'cash',
+                element:<PrivateRoute><Cash></Cash></PrivateRoute>
             }
         ]
     }

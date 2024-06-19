@@ -1,7 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 import { IoMdCloseCircleOutline, IoMdLogIn, IoIosContact } from "react-icons/io";
 import { IoHomeOutline } from "react-icons/io5";
-import { FaPeopleGroup, FaPeopleRoof } from "react-icons/fa6";
+import { FaPeopleGroup, FaPeopleRoof,FaMoneyBill1Wave } from "react-icons/fa6";
 import { TbCoinTakaFilled } from "react-icons/tb";
 import { CgProfile } from "react-icons/cg";
 // import { FaMoneyCheckAlt } from "react-icons/fa";
@@ -108,6 +108,11 @@ const Navbar = () => {
                                         {
                                             userData.type === 'superAdmin' && <div>
                                                 <Link to="/all/users" onClick={() => setIsProfileClicked(false)} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><FaPeopleGroup />All Users </Link>
+                                            </div>
+                                        }
+                                        {
+                                            userData.type === 'superAdmin' && <div>
+                                                <Link to="/cash" onClick={() => setIsProfileClicked(false)} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><FaMoneyBill1Wave /> Cash</Link>
                                             </div>
                                         }
                                          <Link onClick={handleLogout} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><RiLogoutCircleLine /> Logout</Link>

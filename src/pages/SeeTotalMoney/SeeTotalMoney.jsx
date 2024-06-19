@@ -13,14 +13,14 @@ const SeeTotalMoney = () => {
                 <div className="border-2 border-blue-600 rounded-lg shadow-xl shadow-gray-500 md:w-1/2 min-h-[300px]">
                     <h2 className="text-5xl font-bold font-serif text-center my-5">Total Savings Money</h2>
                     <div className="flex justify-center items-center gap-10">
-                        <p className="text-5xl flex items-center gap-2 font-medium text-green-800">{Money?.totalMoney} <TbCoinTaka /></p>
+                        <p className="text-5xl flex items-center gap-2 font-medium text-green-800">{Money?.totalMoney?.toFixed(2)} <TbCoinTaka /></p>
                         <p className="text-7xl lg:text-9xl text-orange-600"><GrMoney /></p>
                     </div>
                 </div>
                 <div className="border-2 border-blue-600 rounded-lg shadow-xl shadow-gray-500 md:w-1/2 min-h-[300px]">
                     <h2 className="text-5xl font-bold font-serif text-center my-5">Total Cost</h2>
                     <div className="flex justify-center items-center gap-10">
-                        <p className="text-5xl flex items-center gap-2 font-medium text-red-600">{Money?.totalCost} <TbCoinTaka /></p>
+                        <p className="text-5xl flex items-center gap-2 font-medium text-red-600">{Money?.totalCost?.toFixed(2)} <TbCoinTaka /></p>
                         <p className="text-7xl lg:text-9xl text-orange-600"><GrMoney /></p>
                     </div>
                 </div>
