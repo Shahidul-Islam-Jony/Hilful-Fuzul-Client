@@ -52,6 +52,7 @@ const BenifitedPeople = () => {
                                     <th className="text-lg font-medium text-black">Name</th>
                                     <th className="text-lg font-medium text-black">Village</th>
                                     <th className="text-lg font-medium text-black">Items</th>
+                                    <th className="text-lg font-medium text-black">Added By</th>
                                     <th className="text-lg font-medium text-black">Money</th>
                                 </tr>
                             </thead>
@@ -61,12 +62,13 @@ const BenifitedPeople = () => {
                                         <td className="text-base text-black font-medium">{item.name}</td>
                                         <td className="text-base text-black font-medium">{item.village}</td>
                                         <td className="text-base text-black font-medium">{item.items}</td>
-                                        <td className="text-base text-black font-medium">{item.money}</td>
+                                        <td className="text-base text-black font-medium">{item?.addedBy}</td>
+                                        <td className="text-base text-black font-medium">{item.money} tk</td>
                                     </tr>
                                 ))}
                                 <tr>
-                                    <td colSpan="3" className="text-right font-bold">Total:</td>
-                                    <td className="text-base text-black font-bold">{totalMoneyForCurrentMonth}</td>
+                                    <td colSpan="4" className="text-right font-bold">Total:</td>
+                                    <td className="text-base text-black font-bold">{totalMoneyForCurrentMonth} tk</td>
                                 </tr>
                             </tbody>
                         </table>
