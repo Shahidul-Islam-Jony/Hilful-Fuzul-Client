@@ -71,9 +71,9 @@ const Cash = () => {
           <div className="flex justify-center mt-6">
             <button
               className={
-                userData?.transfer > 0
-                  ? "text-lg font-medium btn btn-sm btn-outline mr-4 btn-disabled"
-                  : "text-lg font-medium btn btn-sm btn-outline mr-4"
+                userData?.transfer <= 0
+                  ? userData.cash <= 0? "text-lg font-medium btn btn-sm btn-outline mr-4 btn-disabled"
+                  : "text-lg font-medium btn btn-sm btn-outline mr-4":'text-lg font-medium btn btn-sm btn-outline mr-4 btn-disabled'
               }
               onClick={() => document.getElementById("my_modal_3").showModal()}
             >
