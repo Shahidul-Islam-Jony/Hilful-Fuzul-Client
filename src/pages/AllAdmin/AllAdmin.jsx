@@ -46,6 +46,17 @@ const AllAdmin = () => {
     })
   };
 
+//   clear admin cost
+const handleClearCost = async(uid)=>{
+    // console.log(uid);
+    const clearCost = {uid:uid};
+    axiosPublic.patch('/clear/cost',clearCost).then(res=>{
+        if (res.status === 200) {
+            swal("Successful!", "Admin cost cleared successfully", "success");
+          }
+    })
+}
+
   return (
     <div className="mt-28 w-[97%] mx-auto">
       <div className="overflow-x-auto">
@@ -106,7 +117,7 @@ const AllAdmin = () => {
                   )}
                   <br />
                   {admin?.cost > 0 && (
-                    <button className="btn btn-sm btn-outline mt-2">
+                    <button onClick={()=>handleClearCost(admin?.uid)} className="btn btn-sm btn-outline mt-2">
                       Clear Cost
                     </button>
                   )}
