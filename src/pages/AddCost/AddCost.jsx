@@ -16,6 +16,7 @@ const AddCost = () => {
   // console.log(user?.uid);
   const [userData] = useGetSingleUser(user?.uid);
   // console.log(userData?.name, userData?.uid);
+  // console.log(userData?.cash);
 
   // Upload Image into imageBB
   const handleUploadImageBB = async (e) => {
@@ -33,7 +34,7 @@ const AddCost = () => {
     setImageUrl(res.data.data.display_url);
   };
 
-  const handleDonation = (e) => {
+  const handleDonation = async (e) => {
     e.preventDefault();
     const form = e.target;
     const name = form.name.value;
@@ -55,18 +56,31 @@ const AddCost = () => {
       uid: userData?.uid,
     };
 
-    axiosPublic
+    const cost = {
+      uid: user?.uid,
+      cost: money,
+    };
+    if(userData?.cash >= money){
+      await axiosPublic
       .post("/add/cost", donation)
-      .then((res) => {
+      .then(async (res) => {
         if (res.status === 200) {
-          swal("Successful!", "Donation added", "success");
-          form.reset();
+          await axiosPublic.post("/add/cash",cost).then((res) => {
+            if (res.status === 200) {
+              swal("Successful!", "Donation added", "success");
+              form.reset();
+            }
+          });
         }
       })
       .catch((error) => {
         console.log(error);
         swal("Oops", "Error adding donation", "error");
       });
+    }
+    else{
+      swal("Oops", "Not enough money in your Cash", "error");
+    }
   };
 
   // Prevent changing amount on mouse wheel
