@@ -6,7 +6,7 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 import swal from "sweetalert";
 
 const AllAdmin = () => {
-  const [admins, isLoading] = useGetAllAdmin();
+  const [admins, isLoading,refetch] = useGetAllAdmin();
   //   console.log(admins);
   const { user } = useContext(AuthContext);
   const axiosPublic = useAxiosPublic();
@@ -39,6 +39,7 @@ const AllAdmin = () => {
         // console.log(res);
         if (res.status === 200) {
             swal("Successful!", "Cash recieved successful", "success");
+            refetch();
           }
     }).catch(error=>{
         console.log(error);
@@ -53,6 +54,7 @@ const handleClearCost = async(uid)=>{
     axiosPublic.patch('/clear/cost',clearCost).then(res=>{
         if (res.status === 200) {
             swal("Successful!", "Admin cost cleared successfully", "success");
+            refetch();
           }
     })
 }

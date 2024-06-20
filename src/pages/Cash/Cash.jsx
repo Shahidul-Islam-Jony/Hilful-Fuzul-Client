@@ -5,12 +5,13 @@ import { AuthContext } from "../../providers/AuthProvider";
 import useGetSingleUser from "../../hooks/useGetSingleUser";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import swal from "sweetalert";
+import { Audio } from "react-loader-spinner";
 
 const Cash = () => {
   const { user } = useContext(AuthContext);
   // console.log(user);
-  const [userData] = useGetSingleUser(user?.uid);
-  console.log(userData?.cash);
+  const [userData,isLoading,refetch] = useGetSingleUser(user?.uid);
+//   console.log(userData?.cash);
   const axiosPublic = useAxiosPublic();
 
   const handleTransferMoney = async (e) => {
@@ -27,13 +28,30 @@ const Cash = () => {
       amount: money,
     };
     await axiosPublic.patch("/transfer/cash", cash).then((res) => {
-        console.log(res);
+    //   console.log(res);
       if (res.status === 200) {
         swal("Successful!", "Cash Transfer is pending...", "success");
         document.getElementById("my_modal_3").close();
+        refetch();
       }
     });
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center mt-32">
+        <Audio
+          height="100"
+          width="100"
+          color="#4fa94d"
+          ariaLabel="audio-loading"
+          wrapperStyle={{}}
+          wrapperClass="wrapper-class"
+          visible={true}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="mt-28 w-11/12 mx-auto">
@@ -52,7 +70,11 @@ const Cash = () => {
           </div>
           <div className="flex justify-center mt-6">
             <button
-              className={userData?.transfer > 0 ? 'text-lg font-medium btn btn-sm btn-outline mr-4 btn-disabled':'text-lg font-medium btn btn-sm btn-outline mr-4'}
+              className={
+                userData?.transfer > 0
+                  ? "text-lg font-medium btn btn-sm btn-outline mr-4 btn-disabled"
+                  : "text-lg font-medium btn btn-sm btn-outline mr-4"
+              }
               onClick={() => document.getElementById("my_modal_3").showModal()}
             >
               Transfer Money
@@ -84,9 +106,13 @@ const Cash = () => {
 
             <div className="flex items-center">
               {userData?.transfer > 0 ? (
-                <p className="text-blue-700 font-bold">Cash ({userData?.transfer} tk) Transfer pending...</p>
+                <p className="text-blue-700 font-bold">
+                  Cash ({userData?.transfer} tk) Transfer pending...
+                </p>
               ) : (
-                <p className="text-green-800 font-bold">Cash transfered successful</p>
+                <p className="text-green-800 font-bold">
+                  Cash transfered successful
+                </p>
               )}
             </div>
           </div>

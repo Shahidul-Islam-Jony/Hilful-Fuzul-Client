@@ -4,7 +4,6 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 import swal from "sweetalert";
 
 const AllUsers = () => {
-
   const [users, setUsers] = useState(null);
   const axiosPublic = useAxiosPublic();
 
@@ -20,6 +19,9 @@ const AllUsers = () => {
   const pages = [...Array(totalPages).keys()]; //total separate page number // you can do it for loop also
   // console.log(pages);
   const [currentPage, setCurrentPage] = useState(0);
+
+    // Refetch trigger state for refetch user after deleting, or changing type
+    const [refetchUsers, setRefetchUsers] = useState(false);
 
   // handleItemPerPage
   const handleItemPerPage = (e) => {
@@ -52,11 +54,11 @@ const AllUsers = () => {
       axiosPublic
         .get(`/all/users?page=${currentPage}&size=${itemsPerPage}`)
         .then((res) => {
-        //   console.log(res?.data);
+          //   console.log(res?.data);
           setUsers(res?.data);
         });
     }
-  }, [axiosPublic, currentPage, itemsPerPage, searchQuery]);
+  }, [axiosPublic, currentPage, itemsPerPage, searchQuery,refetchUsers]);   // adding refetchUsers for refetch user
 
   //   pagination ends
 
@@ -79,9 +81,8 @@ const AllUsers = () => {
         axiosPublic.patch("/update/user/type", updateType).then((res) => {
           // console.log(res);
           if (res?.status === 200) {
-            swal("Member is now an Admin", {
-              icon: "success",
-            }).then(() => {});
+            swal("Successful!", "Member is now an Admin", "success");
+            setRefetchUsers((prev) => !prev); // Refetch users list
           }
         });
       } else {
@@ -108,9 +109,8 @@ const AllUsers = () => {
         axiosPublic.patch("/update/user/type", updateType).then((res) => {
           // console.log(res);
           if (res?.status === 200) {
-            swal("Admin is now a Member", {
-              icon: "success",
-            });
+            swal("Successful!", "Admin is now a Member", "success");
+            setRefetchUsers((prev) => !prev); // Refetch users list
           }
         });
       } else {
@@ -123,25 +123,24 @@ const AllUsers = () => {
   const handleDeleteUser = (uid) => {
     // console.log(uid);
     swal({
-        title: "Are you sure?",
-        text: "You want to delete this User",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-      }).then((admin) => {
-        if (admin) {
-          axiosPublic.delete(`delete/user/${uid}`).then((res) => {
-            // console.log(res);
-            if (res?.status === 200) {
-              swal("User deleted successful", {
-                icon: "success",
-              });
-            }
-          });
-        } else {
-          swal("Operation cancel !");
-        }
-      });
+      title: "Are you sure?",
+      text: "You want to delete this User",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((admin) => {
+      if (admin) {
+        axiosPublic.delete(`delete/user/${uid}`).then((res) => {
+          // console.log(res);
+          if (res?.status === 200) {
+            swal("Successful!", "User deleted successfully", "success");
+            setRefetchUsers((prev) => !prev); // Refetch users list
+          }
+        });
+      } else {
+        swal("Operation cancel !");
+      }
+    });
   };
 
   return (

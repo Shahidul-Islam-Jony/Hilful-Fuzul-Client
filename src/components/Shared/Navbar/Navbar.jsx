@@ -90,14 +90,14 @@ const Navbar = () => {
                                             (userData.type === 'member' || userData.type === 'admin' || userData.type === 'superAdmin') &&
                                             <Link to='/see/total/money' onClick={() => setIsProfileClicked(false)} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><TbCoinTakaFilled /> See Total Money</Link>
                                         }
-                                        {/* {
-                                            (userData.type === 'admin' || userData.type === 'superAdmin') && <div>
-                                                <Link to='/addMoney' onClick={() => setIsProfileClicked(false)} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><FaMoneyCheckAlt /> Add Money</Link>
-                                            </div>
-                                        } */}
                                         {
-                                            (userData.type === 'superAdmin') && <div>
+                                            (userData.type === 'superAdmin' || userData.type === 'admin') && <div>
                                                 <Link to="/add/cost" onClick={() => setIsProfileClicked(false)} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><GiReceiveMoney /> Add Cost</Link>
+                                            </div>
+                                        }
+                                        {
+                                            (userData.type === 'superAdmin' || userData.type === 'admin') && <div>
+                                                <Link to="/cash" onClick={() => setIsProfileClicked(false)} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><FaMoneyBill1Wave /> Cash</Link>
                                             </div>
                                         }
                                         {
@@ -110,11 +110,7 @@ const Navbar = () => {
                                                 <Link to="/all/users" onClick={() => setIsProfileClicked(false)} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><FaPeopleGroup />All Users </Link>
                                             </div>
                                         }
-                                        {
-                                            userData.type === 'superAdmin' && <div>
-                                                <Link to="/cash" onClick={() => setIsProfileClicked(false)} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><FaMoneyBill1Wave /> Cash</Link>
-                                            </div>
-                                        }
+                                        
                                         {
                                             userData.type === 'superAdmin' && <div>
                                                 <Link to="/admins" onClick={() => setIsProfileClicked(false)} className="flex items-center gap-2 hover:bg-green-800 hover:text-white rounded-lg p-2"><FaPeopleLine /> All Admins</Link>
