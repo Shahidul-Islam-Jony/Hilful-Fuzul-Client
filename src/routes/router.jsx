@@ -16,6 +16,7 @@ import AboutHilfulFuzul from "../pages/AboutHilfulFuzul/AboutHilfulFuzul";
 import ContactUs from "../pages/ContactUs/ContactUs";
 import BenifitedPeople from "../pages/BenifitedPeople/BenifitedPeople";
 import Cash from "../pages/Cash/Cash";
+import AllAdmin from "../pages/AllAdmin/AllAdmin";
 
 const router = createBrowserRouter([
     {
@@ -78,6 +79,10 @@ const router = createBrowserRouter([
             {
                 path:'cash',
                 element:<PrivateRoute><Cash></Cash></PrivateRoute>
+            },
+            {
+                path:'admins',
+                element:<PrivateRoute><AllAdmin></AllAdmin></PrivateRoute>
             }
         ]
     }
